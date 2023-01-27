@@ -2,21 +2,43 @@
 
 namespace MathTools;
 
+/// <summary>
+///     Matrix Class. This is a wrapper around a  multidimensional double array of size NxM. The Matrix can be used and
+///     accessed
+///     much as a multidimensional array and extends the functionality to basic operations known to matrices. These
+///     operations include but do not limit to arithmetical operations.
+/// </summary>
 public class Matrix
 {
+    //Todo: extend to generic type if possible.
+    // backing fields
     private readonly MatrixComparer _comparer = new();
 
     private double? _det;
 
-    // backing fields
+    /// <summary>
+    ///     Backing field for the transpose of the matrix. The transpose is initialized as null and is set with the first call.
+    ///     The Transpose has a reference to the Matrix it self to enable fast conversion between matrices and there transpose.
+    /// </summary>
     private Matrix? _transpose;
 
+    /// <summary>
+    ///     Create a new matrix object with the data provided and a inverse. This is not Accessible from outside the Matrix but
+    ///     is used internally to create the inverse and transpose of the matrix while assigning the Matrix as its inverse or
+    ///     transpose.
+    /// </summary>
+    /// <param name="data">The data to assign</param>
+    /// <param name="trans">The transpose or inverse</param>
     private Matrix(double[,] data, Matrix trans)
     {
         Data = data;
         _transpose = trans;
     }
 
+    /// <summary>
+    ///     Create a new Matrix and assign the data to the backing field.
+    /// </summary>
+    /// <param name="data">The data to assign</param>
     public Matrix(double[,] data)
     {
         Data = data;
@@ -34,6 +56,9 @@ public class Matrix
     /// </summary>
     public double D => _det ?? CalcDetermining();
 
+    /// <summary>
+    ///     Data container for the matrix. Multidimensional array of double.
+    /// </summary>
     private double[,] Data { get; }
 
     // Getter and setter

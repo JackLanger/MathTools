@@ -62,10 +62,8 @@
     &lt;TestId&gt;NUnit3x::FAC040FA-310C-4B92-AD2A-2567CDA84368::net7.0::MathTools_TestLib.LinAlg.LinalgTest&lt;/TestId&gt;&#xD;
   &lt;/TestAncestor&gt;&#xD;
 &lt;/SessionState&gt;</s:String>
-	<s:String x:Key="/Default/Environment/UnitTesting/UnitTestSessionStore/Sessions/=9ece3466_002Dba58_002D4fec_002Dac93_002D3e5345638588/@EntryIndexedValue">&lt;SessionState ContinuousTestingMode="0" Name="CallerNameTest" xmlns="urn:schemas-jetbrains-com:jetbrains-ut-session"&gt;&#xD;
-  &lt;TestAncestor&gt;&#xD;
-    &lt;TestId&gt;NUnit3x::FAC040FA-310C-4B92-AD2A-2567CDA84368::net7.0::MathTools_TestLib.InvalidMatrixOperationTest.CallerNameTest&lt;/TestId&gt;&#xD;
-  &lt;/TestAncestor&gt;&#xD;
+	<s:String x:Key="/Default/Environment/UnitTesting/UnitTestSessionStore/Sessions/=9ece3466_002Dba58_002D4fec_002Dac93_002D3e5345638588/@EntryIndexedValue">&lt;SessionState ContinuousTestingMode="0" IsActive="True" Name="CallerNameTest" xmlns="urn:schemas-jetbrains-com:jetbrains-ut-session"&gt;&#xD;
+  &lt;Project Location="C:\Users\langer\Desktop\neuronales Netz\MathTools\MathTools-TestLib" Presentation="&amp;lt;MathTools-TestLib&amp;gt;" /&gt;&#xD;
 &lt;/SessionState&gt;</s:String>
 	<s:String x:Key="/Default/Environment/UnitTesting/UnitTestSessionStore/Sessions/=9fdbed98_002Da4c5_002D4160_002Db592_002Da3f4600f0fa8/@EntryIndexedValue">&lt;SessionState ContinuousTestingMode="0" Name="InvalidMatrixOperationTest #5" xmlns="urn:schemas-jetbrains-com:jetbrains-ut-session"&gt;&#xD;
   &lt;TestAncestor&gt;&#xD;
@@ -139,7 +137,7 @@
     &lt;TestId&gt;NUnit3x::FAC040FA-310C-4B92-AD2A-2567CDA84368::net7.0::MathTools_TestLib.LinAlg.LinalgTest&lt;/TestId&gt;&#xD;
   &lt;/TestAncestor&gt;&#xD;
 &lt;/SessionState&gt;</s:String>
-	<s:String x:Key="/Default/Environment/UnitTesting/UnitTestSessionStore/Sessions/=fdafd422_002Ddcdb_002D4fd0_002D87de_002D26cb05b3a705/@EntryIndexedValue">&lt;SessionState ContinuousTestingMode="0" IsActive="True" Name="InvalidMatrixOperationTest #16" xmlns="urn:schemas-jetbrains-com:jetbrains-ut-session"&gt;&#xD;
+	<s:String x:Key="/Default/Environment/UnitTesting/UnitTestSessionStore/Sessions/=fdafd422_002Ddcdb_002D4fd0_002D87de_002D26cb05b3a705/@EntryIndexedValue">&lt;SessionState ContinuousTestingMode="0" Name="InvalidMatrixOperationTest #16" xmlns="urn:schemas-jetbrains-com:jetbrains-ut-session"&gt;&#xD;
   &lt;TestAncestor&gt;&#xD;
     &lt;TestId&gt;NUnit3x::FAC040FA-310C-4B92-AD2A-2567CDA84368::net7.0::MathTools_TestLib.InvalidMatrixOperationTest&lt;/TestId&gt;&#xD;
     &lt;TestId&gt;NUnit3x::FAC040FA-310C-4B92-AD2A-2567CDA84368::net7.0::MathTools_TestLib.models.MatrixTest.TestPivoting&lt;/TestId&gt;&#xD;
