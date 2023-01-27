@@ -1,4 +1,5 @@
 ﻿using MathTools;
+using MathTools_TestLib.utils;
 using NUnit.Framework;
 
 namespace MathTools_TestLib.LinAlg;
@@ -11,10 +12,10 @@ public class LinalgTest
         var m = new Matrix(new double[,] {{5, 2, 8}, {1, 5, 9}, {7, 5, 3}});
         double[] solv = {8, 6, 1};
 // Expected calculated with Wolfram Alpha
-        double[] expected = {29 / 135.0, 197 / 270.0, 283 / 270.0};
+        double[] expected = {29 / 135.0, -197 / 270.0, 283 / 270.0};
         var actual = MathTools.LinAlg.Solve(m, solv);
         Console.WriteLine($"actual:[{string.Join(" | ", actual)}],\nexpected:[{string.Join(" | ", expected)}]");
-        Assert.True(actual.Equals(expected));
+        Assert.True(ArrayUtils.ArrayAreEqual(actual, expected));
     }
 
     [Test]
@@ -31,5 +32,11 @@ public class LinalgTest
             Console.WriteLine(
                 $"actual:{string.Join(" | ", inverse[i].data)},\texpected:{string.Join(" | ", expected[i].data)}");
         Assert.True(inverse.Equals(expected));
+    }
+
+    [Test]
+    public void Test_LGS_With_Zero_Value_Rows()
+    {
+        //todo(jack): implement.
     }
 }
