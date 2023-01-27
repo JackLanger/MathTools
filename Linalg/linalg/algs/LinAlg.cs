@@ -32,10 +32,15 @@ public static class LinAlg
         for (var i = 1; i < m.Rows; i++)
         for (var j = i; j < m.Rows; j++)
         {
+            if (m[i, i] == 0)
+            {
+                m.PivotRows(i, i + 1);
+                (s[i], s[i + 1]) = (s[i + 1], s[i]);
+            }
+
             var a = -1 * m[j, i - 1] / m[i - 1, i - 1];
             m[j] += m[i - 1] * a;
-            if (j == i)
-                s[i] += a * s[i - 1];
+            s[j] += a * s[i - 1];
         }
 
         // iterate back up
@@ -45,12 +50,16 @@ public static class LinAlg
             // take last row right index and sequentially iterate up 
             var a = -1 * m[j, i + 1] / m[i + 1, i + 1];
             m[j] += m[i + 1] * a;
-            if (j == i)
-                s[i] += a * s[i + 1];
+            s[j] += a * s[i + 1];
         }
 
         // normalize the data
-        for (var i = 0; i < m.Rows; i++) s[i] /= m[i, i];
+        for (var i = 0; i < m.Rows; i++)
+        {
+            var alpha = m[i, i];
+            m[i] /= alpha;
+            s[i] /= alpha;
+        }
 
         return s;
     }
@@ -110,10 +119,15 @@ public static class LinAlg
         for (var i = 1; i < m.Rows; i++)
         for (var j = i; j < m.Rows; j++)
         {
+            if (m[i, i] == 0)
+            {
+                m.PivotRows(i, i + 1);
+                solv.PivotRows(i, i + 1);
+            }
+
             var a = -1 * m[j, i - 1] / m[i - 1, i - 1];
             m[j] += m[i - 1] * a;
-            if (j == i)
-                solv[i] += a * solv[i - 1];
+            solv[j] += a * solv[i - 1];
         }
 
         for (var i = m.Rows - 2; i >= 0; i--)
@@ -122,8 +136,7 @@ public static class LinAlg
             // take last row right index and sequentially iterate up 
             var a = -1 * m[j, i + 1] / m[i + 1, i + 1];
             m[j] += m[i + 1] * a;
-            if (j == i)
-                solv[i] += a * solv[i + 1];
+            solv[j] += a * solv[i + 1];
         }
 
         // normalize the data
