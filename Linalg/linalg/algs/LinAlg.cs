@@ -6,7 +6,8 @@
 public static class LinAlg
 {
     /// <summary>
-    ///     Solve a Matrix using the solving vector and return the result of the operation as a double array.
+    ///     Solve a Matrix using the solving vector and return the result of the operation as a double
+    ///     array.
     /// </summary>
     /// <param name="matrix">the Matrix to solve</param>
     /// <param name="solv">The Solving vector used for solving the Matrix</param>
@@ -32,7 +33,7 @@ public static class LinAlg
         for (var i = 1; i < m.Rows; i++)
         for (var j = i; j < m.Rows; j++)
         {
-            if (m[i, i] == 0)
+            if (m[i, i] == 0) // the main diagonal index is 0 we need to swap
             {
                 m.PivotRows(i, i + 1);
                 (s[i], s[i + 1]) = (s[i + 1], s[i]);
@@ -80,7 +81,8 @@ public static class LinAlg
         {
             if (matrix.Rank == solv.Length)
                 throw new NotImplementedException();
-            throw new InvalidMatrixOperation("Can't solve the LES, the solving Vector has to match the Matrix Rows.");
+            throw new InvalidMatrixOperation(
+                "Can't solve the LES, the solving Vector has to match the Matrix Rows.");
         }
     }
 
@@ -96,8 +98,10 @@ public static class LinAlg
     }
 
     /// <summary>
-    ///     Calculate the Inverse of a Matrix. The Process is similiar to solving a linear equation system. Instead of a Vector
-    ///     to solve against a unified matrix is used. The Inverse is the result of the Solving the equations and applying the
+    ///     Calculate the Inverse of a Matrix. The Process is similiar to solving a linear equation system.
+    ///     Instead of a Vector
+    ///     to solve against a unified matrix is used. The Inverse is the result of the Solving the
+    ///     equations and applying the
     ///     steps to the unification matrix.
     /// </summary>
     /// <param name="matrix">matrix to Invert</param>

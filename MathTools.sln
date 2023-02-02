@@ -4,6 +4,8 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Linalg", "Linalg\Linalg.csp
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "MathTools-TestLib", "MathTools-TestLib\MathTools-TestLib.csproj", "{FAC040FA-310C-4B92-AD2A-2567CDA84368}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "MathCanvas", "MathCanvas\MathCanvas.csproj", "{E62D3D83-6066-4A5A-AAB1-C7C447747B6C}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -18,5 +20,9 @@ Global
 		{FAC040FA-310C-4B92-AD2A-2567CDA84368}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{FAC040FA-310C-4B92-AD2A-2567CDA84368}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{FAC040FA-310C-4B92-AD2A-2567CDA84368}.Release|Any CPU.Build.0 = Release|Any CPU
+		{E62D3D83-6066-4A5A-AAB1-C7C447747B6C}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{E62D3D83-6066-4A5A-AAB1-C7C447747B6C}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{E62D3D83-6066-4A5A-AAB1-C7C447747B6C}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{E62D3D83-6066-4A5A-AAB1-C7C447747B6C}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 EndGlobal

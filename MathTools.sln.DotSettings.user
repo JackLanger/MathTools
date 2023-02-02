@@ -1,148 +1,22 @@
 ﻿<wpf:ResourceDictionary xml:space="preserve" xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml" xmlns:s="clr-namespace:System;assembly=mscorlib" xmlns:ss="urn:shemas-jetbrains-com:settings-storage-xaml" xmlns:wpf="http://schemas.microsoft.com/winfx/2006/xaml/presentation">
 	<s:String x:Key="/Default/Environment/Highlighting/HighlightingSourceSnapshotLocation/@EntryValue">C:\Users\langer\AppData\Local\JetBrains\Rider2022.3\resharper-host\temp\Rider\vAny\CoverageData\_MathTools.-1539632021\Snapshot\snapshot.utdcvr</s:String>
-	<s:String x:Key="/Default/Environment/UnitTesting/UnitTestSessionStore/Sessions/=43b8fceb_002D2bcc_002D4643_002D95b6_002D0b7444dc654c/@EntryIndexedValue">&lt;SessionState ContinuousTestingMode="0" Name="InvalidMatrixOperationTest #6" xmlns="urn:schemas-jetbrains-com:jetbrains-ut-session"&gt;&#xD;
-  &lt;TestAncestor&gt;&#xD;
-    &lt;TestId&gt;NUnit3x::FAC040FA-310C-4B92-AD2A-2567CDA84368::net7.0::MathTools_TestLib.InvalidMatrixOperationTest&lt;/TestId&gt;&#xD;
-    &lt;TestId&gt;NUnit3x::FAC040FA-310C-4B92-AD2A-2567CDA84368::net7.0::MathTools_TestLib.models.MatrixTest.TestPivoting&lt;/TestId&gt;&#xD;
-    &lt;TestId&gt;NUnit3x::FAC040FA-310C-4B92-AD2A-2567CDA84368::net7.0::MathTools_TestLib.models.MatrixTest.Test_Pivoting_Out_Of_Bounds&lt;/TestId&gt;&#xD;
-    &lt;TestId&gt;NUnit3x::FAC040FA-310C-4B92-AD2A-2567CDA84368::net7.0::MathTools_TestLib.models.MatrixTest&lt;/TestId&gt;&#xD;
-    &lt;TestId&gt;NUnit3x::FAC040FA-310C-4B92-AD2A-2567CDA84368::net7.0::MathTools_TestLib.LinAlg.LinalgTest&lt;/TestId&gt;&#xD;
-  &lt;/TestAncestor&gt;&#xD;
-&lt;/SessionState&gt;</s:String>
-	<s:String x:Key="/Default/Environment/UnitTesting/UnitTestSessionStore/Sessions/=468f6ade_002D3dbc_002D4f03_002Db370_002De69c61147866/@EntryIndexedValue">&lt;SessionState ContinuousTestingMode="0" Name="InvalidMatrixOperationTest #14" xmlns="urn:schemas-jetbrains-com:jetbrains-ut-session"&gt;&#xD;
-  &lt;TestAncestor&gt;&#xD;
-    &lt;TestId&gt;NUnit3x::FAC040FA-310C-4B92-AD2A-2567CDA84368::net7.0::MathTools_TestLib.InvalidMatrixOperationTest&lt;/TestId&gt;&#xD;
-    &lt;TestId&gt;NUnit3x::FAC040FA-310C-4B92-AD2A-2567CDA84368::net7.0::MathTools_TestLib.models.MatrixTest.TestPivoting&lt;/TestId&gt;&#xD;
-    &lt;TestId&gt;NUnit3x::FAC040FA-310C-4B92-AD2A-2567CDA84368::net7.0::MathTools_TestLib.models.MatrixTest.Test_Pivoting_Out_Of_Bounds&lt;/TestId&gt;&#xD;
-    &lt;TestId&gt;NUnit3x::FAC040FA-310C-4B92-AD2A-2567CDA84368::net7.0::MathTools_TestLib.models.MatrixTest&lt;/TestId&gt;&#xD;
-    &lt;TestId&gt;NUnit3x::FAC040FA-310C-4B92-AD2A-2567CDA84368::net7.0::MathTools_TestLib.LinAlg.LinalgTest&lt;/TestId&gt;&#xD;
-  &lt;/TestAncestor&gt;&#xD;
-&lt;/SessionState&gt;</s:String>
-	<s:String x:Key="/Default/Environment/UnitTesting/UnitTestSessionStore/Sessions/=69f12ce6_002Df900_002D442a_002D844b_002De887d9d748be/@EntryIndexedValue">&lt;SessionState ContinuousTestingMode="0" Name="InvalidMatrixOperationTest #8" xmlns="urn:schemas-jetbrains-com:jetbrains-ut-session"&gt;&#xD;
-  &lt;TestAncestor&gt;&#xD;
-    &lt;TestId&gt;NUnit3x::FAC040FA-310C-4B92-AD2A-2567CDA84368::net7.0::MathTools_TestLib.InvalidMatrixOperationTest&lt;/TestId&gt;&#xD;
-    &lt;TestId&gt;NUnit3x::FAC040FA-310C-4B92-AD2A-2567CDA84368::net7.0::MathTools_TestLib.models.MatrixTest.TestPivoting&lt;/TestId&gt;&#xD;
-    &lt;TestId&gt;NUnit3x::FAC040FA-310C-4B92-AD2A-2567CDA84368::net7.0::MathTools_TestLib.models.MatrixTest.Test_Pivoting_Out_Of_Bounds&lt;/TestId&gt;&#xD;
-    &lt;TestId&gt;NUnit3x::FAC040FA-310C-4B92-AD2A-2567CDA84368::net7.0::MathTools_TestLib.models.MatrixTest&lt;/TestId&gt;&#xD;
-    &lt;TestId&gt;NUnit3x::FAC040FA-310C-4B92-AD2A-2567CDA84368::net7.0::MathTools_TestLib.LinAlg.LinalgTest&lt;/TestId&gt;&#xD;
-  &lt;/TestAncestor&gt;&#xD;
-&lt;/SessionState&gt;</s:String>
-	<s:String x:Key="/Default/Environment/UnitTesting/UnitTestSessionStore/Sessions/=7359c919_002D2537_002D4919_002D86b6_002Df407f2e1f208/@EntryIndexedValue">&lt;SessionState ContinuousTestingMode="0" Name="InvalidMatrixOperationTest" xmlns="urn:schemas-jetbrains-com:jetbrains-ut-session"&gt;&#xD;
-  &lt;TestAncestor&gt;&#xD;
-    &lt;TestId&gt;NUnit3x::FAC040FA-310C-4B92-AD2A-2567CDA84368::net7.0::MathTools_TestLib.InvalidMatrixOperationTest&lt;/TestId&gt;&#xD;
-    &lt;TestId&gt;NUnit3x::FAC040FA-310C-4B92-AD2A-2567CDA84368::net7.0::MathTools_TestLib.models.MatrixTest.TestPivoting&lt;/TestId&gt;&#xD;
-    &lt;TestId&gt;NUnit3x::FAC040FA-310C-4B92-AD2A-2567CDA84368::net7.0::MathTools_TestLib.models.MatrixTest.Test_Pivoting_Out_Of_Bounds&lt;/TestId&gt;&#xD;
-    &lt;TestId&gt;NUnit3x::FAC040FA-310C-4B92-AD2A-2567CDA84368::net7.0::MathTools_TestLib.models.MatrixTest&lt;/TestId&gt;&#xD;
-    &lt;TestId&gt;NUnit3x::FAC040FA-310C-4B92-AD2A-2567CDA84368::net7.0::MathTools_TestLib.LinAlg.LinalgTest&lt;/TestId&gt;&#xD;
-  &lt;/TestAncestor&gt;&#xD;
-&lt;/SessionState&gt;</s:String>
-	<s:String x:Key="/Default/Environment/UnitTesting/UnitTestSessionStore/Sessions/=73d096f0_002D61fd_002D47c8_002Dad5b_002D537a3652fb61/@EntryIndexedValue">&lt;SessionState ContinuousTestingMode="0" Name="InvalidMatrixOperationTest #2" xmlns="urn:schemas-jetbrains-com:jetbrains-ut-session"&gt;&#xD;
-  &lt;TestAncestor&gt;&#xD;
-    &lt;TestId&gt;NUnit3x::FAC040FA-310C-4B92-AD2A-2567CDA84368::net7.0::MathTools_TestLib.InvalidMatrixOperationTest&lt;/TestId&gt;&#xD;
-    &lt;TestId&gt;NUnit3x::FAC040FA-310C-4B92-AD2A-2567CDA84368::net7.0::MathTools_TestLib.models.MatrixTest.TestPivoting&lt;/TestId&gt;&#xD;
-    &lt;TestId&gt;NUnit3x::FAC040FA-310C-4B92-AD2A-2567CDA84368::net7.0::MathTools_TestLib.models.MatrixTest.Test_Pivoting_Out_Of_Bounds&lt;/TestId&gt;&#xD;
-    &lt;TestId&gt;NUnit3x::FAC040FA-310C-4B92-AD2A-2567CDA84368::net7.0::MathTools_TestLib.models.MatrixTest&lt;/TestId&gt;&#xD;
-  &lt;/TestAncestor&gt;&#xD;
-&lt;/SessionState&gt;</s:String>
-	<s:String x:Key="/Default/Environment/UnitTesting/UnitTestSessionStore/Sessions/=7be7a41d_002Daaa4_002D4a8d_002Da452_002D139bd75768f0/@EntryIndexedValue">&lt;SessionState ContinuousTestingMode="0" Name="InvalidMatrixOperationTest #11" xmlns="urn:schemas-jetbrains-com:jetbrains-ut-session"&gt;&#xD;
-  &lt;TestAncestor&gt;&#xD;
-    &lt;TestId&gt;NUnit3x::FAC040FA-310C-4B92-AD2A-2567CDA84368::net7.0::MathTools_TestLib.InvalidMatrixOperationTest&lt;/TestId&gt;&#xD;
-    &lt;TestId&gt;NUnit3x::FAC040FA-310C-4B92-AD2A-2567CDA84368::net7.0::MathTools_TestLib.models.MatrixTest.TestPivoting&lt;/TestId&gt;&#xD;
-    &lt;TestId&gt;NUnit3x::FAC040FA-310C-4B92-AD2A-2567CDA84368::net7.0::MathTools_TestLib.models.MatrixTest.Test_Pivoting_Out_Of_Bounds&lt;/TestId&gt;&#xD;
-    &lt;TestId&gt;NUnit3x::FAC040FA-310C-4B92-AD2A-2567CDA84368::net7.0::MathTools_TestLib.models.MatrixTest&lt;/TestId&gt;&#xD;
-    &lt;TestId&gt;NUnit3x::FAC040FA-310C-4B92-AD2A-2567CDA84368::net7.0::MathTools_TestLib.LinAlg.LinalgTest&lt;/TestId&gt;&#xD;
-  &lt;/TestAncestor&gt;&#xD;
-&lt;/SessionState&gt;</s:String>
-	<s:String x:Key="/Default/Environment/UnitTesting/UnitTestSessionStore/Sessions/=91c89efb_002Dad30_002D44fa_002D8419_002D4c708ce031bc/@EntryIndexedValue">&lt;SessionState ContinuousTestingMode="0" Name="InvalidMatrixOperationTest #10" xmlns="urn:schemas-jetbrains-com:jetbrains-ut-session"&gt;&#xD;
-  &lt;TestAncestor&gt;&#xD;
-    &lt;TestId&gt;NUnit3x::FAC040FA-310C-4B92-AD2A-2567CDA84368::net7.0::MathTools_TestLib.InvalidMatrixOperationTest&lt;/TestId&gt;&#xD;
-    &lt;TestId&gt;NUnit3x::FAC040FA-310C-4B92-AD2A-2567CDA84368::net7.0::MathTools_TestLib.models.MatrixTest.TestPivoting&lt;/TestId&gt;&#xD;
-    &lt;TestId&gt;NUnit3x::FAC040FA-310C-4B92-AD2A-2567CDA84368::net7.0::MathTools_TestLib.models.MatrixTest.Test_Pivoting_Out_Of_Bounds&lt;/TestId&gt;&#xD;
-    &lt;TestId&gt;NUnit3x::FAC040FA-310C-4B92-AD2A-2567CDA84368::net7.0::MathTools_TestLib.models.MatrixTest&lt;/TestId&gt;&#xD;
-    &lt;TestId&gt;NUnit3x::FAC040FA-310C-4B92-AD2A-2567CDA84368::net7.0::MathTools_TestLib.LinAlg.LinalgTest&lt;/TestId&gt;&#xD;
-  &lt;/TestAncestor&gt;&#xD;
-&lt;/SessionState&gt;</s:String>
-	<s:String x:Key="/Default/Environment/UnitTesting/UnitTestSessionStore/Sessions/=9ece3466_002Dba58_002D4fec_002Dac93_002D3e5345638588/@EntryIndexedValue">&lt;SessionState ContinuousTestingMode="0" IsActive="True" Name="CallerNameTest" xmlns="urn:schemas-jetbrains-com:jetbrains-ut-session"&gt;&#xD;
+	<s:String x:Key="/Default/Environment/UnitTesting/UnitTestSessionStore/Sessions/=3bcd4188_002D4428_002D4c81_002D85e2_002D3c0cfe50b278/@EntryIndexedValue">&lt;SessionState ContinuousTestingMode="0" IsActive="True" Name="All tests from &amp;lt;MathTools-TestLib&amp;gt;" xmlns="urn:schemas-jetbrains-com:jetbrains-ut-session"&gt;&#xD;
   &lt;Project Location="C:\Users\langer\Desktop\neuronales Netz\MathTools\MathTools-TestLib" Presentation="&amp;lt;MathTools-TestLib&amp;gt;" /&gt;&#xD;
 &lt;/SessionState&gt;</s:String>
-	<s:String x:Key="/Default/Environment/UnitTesting/UnitTestSessionStore/Sessions/=9fdbed98_002Da4c5_002D4160_002Db592_002Da3f4600f0fa8/@EntryIndexedValue">&lt;SessionState ContinuousTestingMode="0" Name="InvalidMatrixOperationTest #5" xmlns="urn:schemas-jetbrains-com:jetbrains-ut-session"&gt;&#xD;
-  &lt;TestAncestor&gt;&#xD;
-    &lt;TestId&gt;NUnit3x::FAC040FA-310C-4B92-AD2A-2567CDA84368::net7.0::MathTools_TestLib.InvalidMatrixOperationTest&lt;/TestId&gt;&#xD;
-    &lt;TestId&gt;NUnit3x::FAC040FA-310C-4B92-AD2A-2567CDA84368::net7.0::MathTools_TestLib.models.MatrixTest.TestPivoting&lt;/TestId&gt;&#xD;
-    &lt;TestId&gt;NUnit3x::FAC040FA-310C-4B92-AD2A-2567CDA84368::net7.0::MathTools_TestLib.models.MatrixTest.Test_Pivoting_Out_Of_Bounds&lt;/TestId&gt;&#xD;
-    &lt;TestId&gt;NUnit3x::FAC040FA-310C-4B92-AD2A-2567CDA84368::net7.0::MathTools_TestLib.models.MatrixTest&lt;/TestId&gt;&#xD;
-    &lt;TestId&gt;NUnit3x::FAC040FA-310C-4B92-AD2A-2567CDA84368::net7.0::MathTools_TestLib.LinAlg.LinalgTest&lt;/TestId&gt;&#xD;
-  &lt;/TestAncestor&gt;&#xD;
-&lt;/SessionState&gt;</s:String>
-	<s:String x:Key="/Default/Environment/UnitTesting/UnitTestSessionStore/Sessions/=a416abbc_002D953d_002D44a3_002D9a5d_002Dc658470d27c6/@EntryIndexedValue">&lt;SessionState ContinuousTestingMode="0" Name="InvalidMatrixOperationTest #9" xmlns="urn:schemas-jetbrains-com:jetbrains-ut-session"&gt;&#xD;
-  &lt;TestAncestor&gt;&#xD;
-    &lt;TestId&gt;NUnit3x::FAC040FA-310C-4B92-AD2A-2567CDA84368::net7.0::MathTools_TestLib.InvalidMatrixOperationTest&lt;/TestId&gt;&#xD;
-    &lt;TestId&gt;NUnit3x::FAC040FA-310C-4B92-AD2A-2567CDA84368::net7.0::MathTools_TestLib.models.MatrixTest.TestPivoting&lt;/TestId&gt;&#xD;
-    &lt;TestId&gt;NUnit3x::FAC040FA-310C-4B92-AD2A-2567CDA84368::net7.0::MathTools_TestLib.models.MatrixTest.Test_Pivoting_Out_Of_Bounds&lt;/TestId&gt;&#xD;
-    &lt;TestId&gt;NUnit3x::FAC040FA-310C-4B92-AD2A-2567CDA84368::net7.0::MathTools_TestLib.models.MatrixTest&lt;/TestId&gt;&#xD;
-    &lt;TestId&gt;NUnit3x::FAC040FA-310C-4B92-AD2A-2567CDA84368::net7.0::MathTools_TestLib.LinAlg.LinalgTest&lt;/TestId&gt;&#xD;
-  &lt;/TestAncestor&gt;&#xD;
-&lt;/SessionState&gt;</s:String>
-	<s:String x:Key="/Default/Environment/UnitTesting/UnitTestSessionStore/Sessions/=be6e68b6_002D3e76_002D44bd_002D9ca1_002Da95bca529063/@EntryIndexedValue">&lt;SessionState ContinuousTestingMode="0" Name="InvalidMatrixOperationTest #15" xmlns="urn:schemas-jetbrains-com:jetbrains-ut-session"&gt;&#xD;
-  &lt;TestAncestor&gt;&#xD;
-    &lt;TestId&gt;NUnit3x::FAC040FA-310C-4B92-AD2A-2567CDA84368::net7.0::MathTools_TestLib.InvalidMatrixOperationTest&lt;/TestId&gt;&#xD;
-    &lt;TestId&gt;NUnit3x::FAC040FA-310C-4B92-AD2A-2567CDA84368::net7.0::MathTools_TestLib.models.MatrixTest.TestPivoting&lt;/TestId&gt;&#xD;
-    &lt;TestId&gt;NUnit3x::FAC040FA-310C-4B92-AD2A-2567CDA84368::net7.0::MathTools_TestLib.models.MatrixTest.Test_Pivoting_Out_Of_Bounds&lt;/TestId&gt;&#xD;
-    &lt;TestId&gt;NUnit3x::FAC040FA-310C-4B92-AD2A-2567CDA84368::net7.0::MathTools_TestLib.models.MatrixTest&lt;/TestId&gt;&#xD;
-    &lt;TestId&gt;NUnit3x::FAC040FA-310C-4B92-AD2A-2567CDA84368::net7.0::MathTools_TestLib.LinAlg.LinalgTest&lt;/TestId&gt;&#xD;
-  &lt;/TestAncestor&gt;&#xD;
-&lt;/SessionState&gt;</s:String>
-	<s:String x:Key="/Default/Environment/UnitTesting/UnitTestSessionStore/Sessions/=d599ec0f_002D447d_002D4eed_002D8802_002Db128d9b040c1/@EntryIndexedValue">&lt;SessionState ContinuousTestingMode="0" Name="InvalidMatrixOperationTest #12" xmlns="urn:schemas-jetbrains-com:jetbrains-ut-session"&gt;&#xD;
-  &lt;TestAncestor&gt;&#xD;
-    &lt;TestId&gt;NUnit3x::FAC040FA-310C-4B92-AD2A-2567CDA84368::net7.0::MathTools_TestLib.InvalidMatrixOperationTest&lt;/TestId&gt;&#xD;
-    &lt;TestId&gt;NUnit3x::FAC040FA-310C-4B92-AD2A-2567CDA84368::net7.0::MathTools_TestLib.models.MatrixTest.TestPivoting&lt;/TestId&gt;&#xD;
-    &lt;TestId&gt;NUnit3x::FAC040FA-310C-4B92-AD2A-2567CDA84368::net7.0::MathTools_TestLib.models.MatrixTest.Test_Pivoting_Out_Of_Bounds&lt;/TestId&gt;&#xD;
-    &lt;TestId&gt;NUnit3x::FAC040FA-310C-4B92-AD2A-2567CDA84368::net7.0::MathTools_TestLib.models.MatrixTest&lt;/TestId&gt;&#xD;
-    &lt;TestId&gt;NUnit3x::FAC040FA-310C-4B92-AD2A-2567CDA84368::net7.0::MathTools_TestLib.LinAlg.LinalgTest&lt;/TestId&gt;&#xD;
-  &lt;/TestAncestor&gt;&#xD;
-&lt;/SessionState&gt;</s:String>
-	<s:String x:Key="/Default/Environment/UnitTesting/UnitTestSessionStore/Sessions/=d82a0d18_002D1a16_002D4fb9_002D8f8f_002D03d615867118/@EntryIndexedValue">&lt;SessionState ContinuousTestingMode="0" Name="InvalidMatrixOperationTest #13" xmlns="urn:schemas-jetbrains-com:jetbrains-ut-session"&gt;&#xD;
-  &lt;TestAncestor&gt;&#xD;
-    &lt;TestId&gt;NUnit3x::FAC040FA-310C-4B92-AD2A-2567CDA84368::net7.0::MathTools_TestLib.InvalidMatrixOperationTest&lt;/TestId&gt;&#xD;
-    &lt;TestId&gt;NUnit3x::FAC040FA-310C-4B92-AD2A-2567CDA84368::net7.0::MathTools_TestLib.models.MatrixTest.TestPivoting&lt;/TestId&gt;&#xD;
-    &lt;TestId&gt;NUnit3x::FAC040FA-310C-4B92-AD2A-2567CDA84368::net7.0::MathTools_TestLib.models.MatrixTest.Test_Pivoting_Out_Of_Bounds&lt;/TestId&gt;&#xD;
-    &lt;TestId&gt;NUnit3x::FAC040FA-310C-4B92-AD2A-2567CDA84368::net7.0::MathTools_TestLib.models.MatrixTest&lt;/TestId&gt;&#xD;
-    &lt;TestId&gt;NUnit3x::FAC040FA-310C-4B92-AD2A-2567CDA84368::net7.0::MathTools_TestLib.LinAlg.LinalgTest&lt;/TestId&gt;&#xD;
-  &lt;/TestAncestor&gt;&#xD;
-&lt;/SessionState&gt;</s:String>
-	<s:String x:Key="/Default/Environment/UnitTesting/UnitTestSessionStore/Sessions/=dad30f8a_002De4b2_002D4456_002D8895_002D0486cf5ea661/@EntryIndexedValue">&lt;SessionState ContinuousTestingMode="0" Name="InvalidMatrixOperationTest #3" xmlns="urn:schemas-jetbrains-com:jetbrains-ut-session"&gt;&#xD;
-  &lt;TestAncestor&gt;&#xD;
-    &lt;TestId&gt;NUnit3x::FAC040FA-310C-4B92-AD2A-2567CDA84368::net7.0::MathTools_TestLib.InvalidMatrixOperationTest&lt;/TestId&gt;&#xD;
-    &lt;TestId&gt;NUnit3x::FAC040FA-310C-4B92-AD2A-2567CDA84368::net7.0::MathTools_TestLib.models.MatrixTest.TestPivoting&lt;/TestId&gt;&#xD;
-    &lt;TestId&gt;NUnit3x::FAC040FA-310C-4B92-AD2A-2567CDA84368::net7.0::MathTools_TestLib.models.MatrixTest.Test_Pivoting_Out_Of_Bounds&lt;/TestId&gt;&#xD;
-    &lt;TestId&gt;NUnit3x::FAC040FA-310C-4B92-AD2A-2567CDA84368::net7.0::MathTools_TestLib.models.MatrixTest&lt;/TestId&gt;&#xD;
-    &lt;TestId&gt;NUnit3x::FAC040FA-310C-4B92-AD2A-2567CDA84368::net7.0::MathTools_TestLib.LinAlg.LinalgTest&lt;/TestId&gt;&#xD;
-  &lt;/TestAncestor&gt;&#xD;
-&lt;/SessionState&gt;</s:String>
-	<s:String x:Key="/Default/Environment/UnitTesting/UnitTestSessionStore/Sessions/=e54cfc30_002Dde12_002D4746_002D8f69_002Dd672ad21b12a/@EntryIndexedValue">&lt;SessionState ContinuousTestingMode="0" Name="InvalidMatrixOperationTest #7" xmlns="urn:schemas-jetbrains-com:jetbrains-ut-session"&gt;&#xD;
-  &lt;TestAncestor&gt;&#xD;
-    &lt;TestId&gt;NUnit3x::FAC040FA-310C-4B92-AD2A-2567CDA84368::net7.0::MathTools_TestLib.InvalidMatrixOperationTest&lt;/TestId&gt;&#xD;
-    &lt;TestId&gt;NUnit3x::FAC040FA-310C-4B92-AD2A-2567CDA84368::net7.0::MathTools_TestLib.models.MatrixTest.TestPivoting&lt;/TestId&gt;&#xD;
-    &lt;TestId&gt;NUnit3x::FAC040FA-310C-4B92-AD2A-2567CDA84368::net7.0::MathTools_TestLib.models.MatrixTest.Test_Pivoting_Out_Of_Bounds&lt;/TestId&gt;&#xD;
-    &lt;TestId&gt;NUnit3x::FAC040FA-310C-4B92-AD2A-2567CDA84368::net7.0::MathTools_TestLib.models.MatrixTest&lt;/TestId&gt;&#xD;
-    &lt;TestId&gt;NUnit3x::FAC040FA-310C-4B92-AD2A-2567CDA84368::net7.0::MathTools_TestLib.LinAlg.LinalgTest&lt;/TestId&gt;&#xD;
-  &lt;/TestAncestor&gt;&#xD;
-&lt;/SessionState&gt;</s:String>
-	<s:String x:Key="/Default/Environment/UnitTesting/UnitTestSessionStore/Sessions/=f689bbde_002Db581_002D41fb_002Da627_002Daa192583f8e1/@EntryIndexedValue">&lt;SessionState ContinuousTestingMode="0" Name="InvalidMatrixOperationTest #4" xmlns="urn:schemas-jetbrains-com:jetbrains-ut-session"&gt;&#xD;
-  &lt;TestAncestor&gt;&#xD;
-    &lt;TestId&gt;NUnit3x::FAC040FA-310C-4B92-AD2A-2567CDA84368::net7.0::MathTools_TestLib.InvalidMatrixOperationTest&lt;/TestId&gt;&#xD;
-    &lt;TestId&gt;NUnit3x::FAC040FA-310C-4B92-AD2A-2567CDA84368::net7.0::MathTools_TestLib.models.MatrixTest.TestPivoting&lt;/TestId&gt;&#xD;
-    &lt;TestId&gt;NUnit3x::FAC040FA-310C-4B92-AD2A-2567CDA84368::net7.0::MathTools_TestLib.models.MatrixTest.Test_Pivoting_Out_Of_Bounds&lt;/TestId&gt;&#xD;
-    &lt;TestId&gt;NUnit3x::FAC040FA-310C-4B92-AD2A-2567CDA84368::net7.0::MathTools_TestLib.models.MatrixTest&lt;/TestId&gt;&#xD;
-    &lt;TestId&gt;NUnit3x::FAC040FA-310C-4B92-AD2A-2567CDA84368::net7.0::MathTools_TestLib.LinAlg.LinalgTest&lt;/TestId&gt;&#xD;
-  &lt;/TestAncestor&gt;&#xD;
-&lt;/SessionState&gt;</s:String>
-	<s:String x:Key="/Default/Environment/UnitTesting/UnitTestSessionStore/Sessions/=fdafd422_002Ddcdb_002D4fd0_002D87de_002D26cb05b3a705/@EntryIndexedValue">&lt;SessionState ContinuousTestingMode="0" Name="InvalidMatrixOperationTest #16" xmlns="urn:schemas-jetbrains-com:jetbrains-ut-session"&gt;&#xD;
-  &lt;TestAncestor&gt;&#xD;
-    &lt;TestId&gt;NUnit3x::FAC040FA-310C-4B92-AD2A-2567CDA84368::net7.0::MathTools_TestLib.InvalidMatrixOperationTest&lt;/TestId&gt;&#xD;
-    &lt;TestId&gt;NUnit3x::FAC040FA-310C-4B92-AD2A-2567CDA84368::net7.0::MathTools_TestLib.models.MatrixTest.TestPivoting&lt;/TestId&gt;&#xD;
-    &lt;TestId&gt;NUnit3x::FAC040FA-310C-4B92-AD2A-2567CDA84368::net7.0::MathTools_TestLib.models.MatrixTest.Test_Pivoting_Out_Of_Bounds&lt;/TestId&gt;&#xD;
-    &lt;TestId&gt;NUnit3x::FAC040FA-310C-4B92-AD2A-2567CDA84368::net7.0::MathTools_TestLib.models.MatrixTest&lt;/TestId&gt;&#xD;
-    &lt;TestId&gt;NUnit3x::FAC040FA-310C-4B92-AD2A-2567CDA84368::net7.0::MathTools_TestLib.LinAlg.LinalgTest&lt;/TestId&gt;&#xD;
-  &lt;/TestAncestor&gt;&#xD;
-&lt;/SessionState&gt;</s:String></wpf:ResourceDictionary>
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	</wpf:ResourceDictionary>
