@@ -1,99 +1,97 @@
-﻿using System;
-using System.Collections.ObjectModel;
+﻿using System.Collections.ObjectModel;
 using System.Drawing;
 using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Input;
 using System.Windows.Media;
 using System.Windows.Media.Effects;
+using System.Windows.Shapes;
 using MathCanvas.Core.Actions;
-using Point = System.Drawing.Point;
+using Point = System.Windows.Point;
 using Size = System.Windows.Size;
 
 namespace MathCanvas.Controller;
 
-public class CanvasController : BaseCanvasController
+public abstract class CanvasController : BaseController
 {
-    private readonly Canvas _canvas;
-
-    private ICommand? _addPointCommand;
-
-    private Size _canvasSize;
-
-    private ICommand? _clearListCommand;
-
-    private ObservableCollection<PointF> _points = new();
-
-    private ICommand? _processCommand;
-
-    private int _scaling = 20;
-
-    private VisualContext _visualContext = VisualContext.D2;
-
     public CanvasController(Canvas canvas)
     {
         _canvas = canvas;
         _canvas.SizeChanged += UpdateCanvas;
-
+        _canvas.MouseDown += CaptureMouseDown;
+        _canvas.MouseWheel += OnZoom;
 
         ClearCanvas();
-
     }
 
-    public int Scale
+    private void OnZoom(object sender, MouseWheelEventArgs e)
     {
-        get => _scaling;
-        set => SetField(ref _scaling, value);
+        // TODO implement
     }
 
-    public VisualContext VisualContext
+
+    private void CaptureMouseDown(object sender, MouseButtonEventArgs e)
     {
-        get => _visualContext;
-        set => SetField(ref _visualContext, value);
+        if (e.MiddleButton == MouseButtonState.Pressed)
+        {
+            // move canvas in 2d / 3d rotate around axis...
+            // // TODO: refuses to let go of mouse move event
+            _canvas.MouseMove += UpdateOffset;
+            _canvas.MouseUp += (_, _) => { _canvas.MouseMove -= UpdateOffset; };
+        }
+        else if (e.LeftButton == MouseButtonState.Pressed)
+        {
+            var pressedPos = e.GetPosition(_canvas);
+            // create a new point
+            _canvas.MouseUp += (s, evt) =>
+            {
+                CreateNewPoint(pressedPos, evt.GetPosition(_canvas));
+            };
+        }
+        // do context menu stuff here.
     }
 
-    public ObservableCollection<PointF> Points
+    private void CreateNewPoint(Point pressedPos, Point getPosition)
     {
-        get => _points;
-        set => SetField(ref _points, value);
+
     }
 
-    public ICommand AddPointCommand =>
-        _addPointCommand ??= new ParameterizedCommand<string>(p => ParsePoints(p));
+    private void UpdateOffset(object sender, MouseEventArgs e)
+    {
 
-    public ICommand ClearListCommand =>
-        _clearListCommand ??= new RelayCommand(() => Points.Clear());
+        // TODO position.
+        if (_currentCenter is null) return;
 
-    public ICommand ProcessCommand =>
-        _processCommand ??= new RelayCommand(() => Process());
+
+        var currentMousePos = e.GetPosition(_canvas);
+        var offX = currentMousePos.X - _currentCenter?.X;
+        var offY = currentMousePos.Y - _currentCenter?.Y;
+
+        _currentCenter = new PointF((float) (_currentCenter?.X + offX)!,
+            (float) (_currentCenter?.Y + offY)!);
+
+        RefreshCanvas();
+
+    }
+
+    private PointF Offset(PointF target, PointF offset) =>
+        new(target.X + offset.X, target.Y + offset.Y);
 
     /// <summary>
     ///     Takes A string of coordinates seperated by ';' and adds the points to the points list.
     /// </summary>
     /// <param name="s">the points to parse</param>
-    private void ParsePoints(string s)
+    private void ParsePoints()
     {
-
-        if (Equals(s, string.Empty)) return;
-        switch (VisualContext)
-        {
-            case VisualContext.D2:
-                ParsePoints2D(s);
-                break;
-            case VisualContext.D3:
-                ParsePoints3D(s);
-                break;
-        }
-
+        if (Equals(PointsString, string.Empty)) return;
+        ParsePoints2D(PointsString);
         DrawPointsOnCanvas();
+
+        PointsString = string.Empty;
     }
 
-    private void ParsePoints3D(string s)
-    {
-        throw new NotImplementedException();
-    }
 
-    private void ParsePoints2D(string s)
+    public void ParsePoints2D(string s)
     {
         var pArr = s.Split(' ');
         foreach (var p in pArr)
@@ -106,10 +104,10 @@ public class CanvasController : BaseCanvasController
         }
     }
 
-    protected virtual void Process()
-    {
-        // Process the values
-    }
+    /// <summary>
+    ///     Process the points in the array Points.
+    /// </summary>
+    protected abstract void Process();
 
 
     private void ClearCanvas()
@@ -117,40 +115,52 @@ public class CanvasController : BaseCanvasController
         _canvas.Children.Clear();
     }
 
+    private void RefreshCanvas()
+    {
+        ClearCanvas();
+        Draw2DCoords();
+        DrawPointsOnCanvas();
+    }
 
     private void UpdateCanvas(object sender, SizeChangedEventArgs args)
     {
         ClearCanvas();
         _canvasSize = args.NewSize;
-        Draw2DGrid(args.NewSize);
+        _currentCenter = new PointF((float) _canvasSize.Width / 2, (float) _canvasSize.Height / 2);
+        if (_offset is not null) Offset(_currentCenter!.Value, _offset!.Value);
+        Draw2DCoords();
     }
 
-    private void Draw2DGrid(Size size)
+    private void Draw2DCoords()
     {
-        var pencil = new SolidColorBrush(Colors.SlateGray);
-        var bottom = size.Height - CanvasOffsets.OffsetY;
+        if (_currentCenter is null) return;
+        if (_offset is not null)
+            _currentCenter = Offset(_currentCenter.Value, _offset.Value);
 
-        var left = CanvasOffsets.OffsetX;
-        var right = size.Width - CanvasOffsets.OffsetX;
-        var horizontal = Line(new Point(5, (int) bottom),
-            new Point((int) right, (int) bottom),
-            pencil);
-        horizontal.SetValue(RenderOptions.EdgeModeProperty, EdgeMode.Aliased);
+        Paper.DrawGrid(PaperLayout.FIVE_MM_GRID, _canvas, _canvasSize, Scale, _currentCenter);
 
-        var vertical = Line(new Point(left, CanvasOffsets.OffsetY),
-            new Point(left, (int) bottom + CanvasOffsets.OffsetX), pencil);
-        vertical.SetValue(RenderOptions.EdgeModeProperty, EdgeMode.Aliased);
+        var pointLx = new PointF(CanvasOffsets.OffsetX, (float) _currentCenter?.Y!);
+        var pointRx = new PointF((float) (_canvasSize.Width - CanvasOffsets.OffsetX),
+            (float) _currentCenter?.Y!);
+
+        var pointTy = new PointF((float) _currentCenter?.X!, CanvasOffsets.OffsetY);
+        var pointTb = new PointF((float) _currentCenter?.X!,
+            (float) _canvasSize.Height - CanvasOffsets.OffsetY);
+
+        var horizontal = DrawUtils.Line(pointLx, pointRx, ColorConst.PENCIL, 1.1);
+
+        var vertical = DrawUtils.Line(pointTy, pointTb, ColorConst.PENCIL, 1.1);
 
         _canvas.Children.Add(horizontal);
         _canvas.Children.Add(vertical);
         // Draw indices for beter overview
-        DrawIndices(size);
+        DrawIndices();
 
     }
 
-    private void DrawIndices(Size size)
+    private void DrawIndices()
     {
-        //todo implement
+
     }
 
     private void DrawPointsOnCanvas()
@@ -158,14 +168,12 @@ public class CanvasController : BaseCanvasController
         var drp = new DropShadowEffect();
         drp.Opacity = .2f;
         drp.ShadowDepth = 1;
-        var pencil = new SolidColorBrush(Colors.DarkSlateGray);
         foreach (var p in Points)
         {
-
-            var point = Point(5, MultPoint(p, _scaling), pencil, _canvasSize);
-            point.Stroke = pencil;
+            var point = Point(3, p, ColorConst.DARK_PENCIL);
+            point.Stroke = ColorConst.DARK_PENCIL;
             point.Effect = drp;
-            point.Fill = pencil;
+            point.Fill = ColorConst.DARK_PENCIL;
             point.Focusable = true;
             point.ToolTip = $"P{_points.IndexOf(p)}(x: {p.X} | y: {p.Y})";
             // todo subscribe to events.
@@ -174,7 +182,82 @@ public class CanvasController : BaseCanvasController
         }
     }
 
+    private Ellipse Point(double radius, PointF point, SolidColorBrush? fill = null)
+    {
+        if (_currentCenter is null) return DrawUtils.Point(radius, point, fill);
 
-    private static Point MultPoint(PointF p, double val) =>
+        var ps = MultPoint(point, Scale);
+        var canvasPoint = new PointF((float) (_currentCenter?.X + ps.X)!,
+            (float) (_currentCenter?.Y - ps.Y)!);
+
+        return DrawUtils.Point(radius, canvasPoint, fill);
+    }
+
+
+    private static PointF MultPoint(PointF p, double val) =>
         new((int) (p.X * val), (int) (p.Y * val));
+
+    #region PRIVATE FIELDS
+
+    private readonly Canvas _canvas;
+
+    private ICommand? _addPointCommand;
+
+    private Size _canvasSize;
+
+    private ICommand? _clearListCommand;
+
+    private PointF? _currentCenter;
+
+    private PointF? _offset;
+
+    private ObservableCollection<PointF> _points = new();
+
+    private ICommand? _processCommand;
+
+    private int _scaling = 20;
+
+    private string _pointsString;
+
+    #endregion
+
+
+    #region PROPERTY GETTERS
+
+    public string PointsString
+    {
+        get => _pointsString;
+        set => SetField(ref _pointsString, value);
+    }
+
+    public int Zoom { get; set; }
+
+    public int Scale
+    {
+        get => _scaling;
+        set => SetField(ref _scaling, value);
+    }
+
+    public ObservableCollection<PointF> Points
+    {
+        get => _points;
+        set => SetField(ref _points, value);
+    }
+
+    public ICommand AddPointCommand =>
+        _addPointCommand ??= new RelayCommand(() => { ParsePoints(); });
+
+    public ICommand ClearListCommand =>
+        _clearListCommand ??= new RelayCommand(() =>
+        {
+            Points.Clear();
+            PointsString = string.Empty;
+            ClearCanvas();
+            Draw2DCoords();
+        });
+
+    public ICommand ProcessCommand =>
+        _processCommand ??= new RelayCommand(() => Process());
+
+    #endregion
 }

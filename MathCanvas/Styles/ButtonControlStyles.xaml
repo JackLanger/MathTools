@@ -45,6 +45,9 @@
     <Setter
       Property="FontSize"
       Value="13" />
+    <Setter
+      Property="FontFamily"
+      Value="Arial" />
     <!-- TEMPLATE -->
     <Setter
       Property="Template">
