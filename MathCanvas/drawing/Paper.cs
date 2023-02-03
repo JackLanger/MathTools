@@ -7,7 +7,7 @@ namespace MathCanvas.Controller;
 
 public class Paper
 {
-    public static void DrawGrid(PaperLayout layout, Canvas canvas, Size canvasSize, int scale,
+    public static void DrawGrid(PaperLayout layout, Canvas canvas, Size canvasSize, float scale,
         PointF? currentCenter)
     {
 
@@ -26,7 +26,7 @@ public class Paper
         }
     }
 
-    private static void DrawLines(Canvas canvas, int scale, Size canvasSize, PointF currentCenter)
+    private static void DrawLines(Canvas canvas, float scale, Size canvasSize, PointF currentCenter)
     {
         var height = (int) canvasSize.Height / 2;
 
@@ -57,14 +57,14 @@ public class Paper
 
     }
 
-    private static void DrawOneMMGrid(Canvas canvas, int scale, Size canvasSize,
+    private static void DrawOneMMGrid(Canvas canvas, float scale, Size canvasSize,
         PointF currentCenter)
     {
 
         throw new NotImplementedException();
     }
 
-    private static void DrawFiveMMGrid(Canvas canvas, int scale, Size canvasSize,
+    private static void DrawFiveMMGrid(Canvas canvas, float scale, Size canvasSize,
         PointF currentCenter)
     {
         DrawLines(canvas, scale, canvasSize, currentCenter);
