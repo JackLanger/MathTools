@@ -1,5 +1,8 @@
-﻿using System.Collections.ObjectModel;
+﻿using System;
+using System.Collections.ObjectModel;
 using System.Drawing;
+using System.Threading;
+using System.Threading.Tasks;
 using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Input;
@@ -26,7 +29,14 @@ public abstract class CanvasController : BaseController
 
     private void OnZoom(object sender, MouseWheelEventArgs e)
     {
-        // TODO implement
+        
+        var d = e.Delta;
+
+        var zoom = 1+ d / 500f;
+        Zoom += zoom;
+        Scale = Scale < 5? 5:Scale*zoom;
+
+        RefreshCanvas();
     }
 
 
@@ -62,14 +72,13 @@ public abstract class CanvasController : BaseController
         // TODO position.
         if (_currentCenter is null) return;
 
-
+        
         var currentMousePos = e.GetPosition(_canvas);
         var offX = currentMousePos.X - _currentCenter?.X;
         var offY = currentMousePos.Y - _currentCenter?.Y;
 
         _currentCenter = new PointF((float) (_currentCenter?.X + offX)!,
             (float) (_currentCenter?.Y + offY)!);
-
         RefreshCanvas();
 
     }
@@ -112,14 +121,17 @@ public abstract class CanvasController : BaseController
 
     private void ClearCanvas()
     {
+        if (_canvas.Children.Count == 0) return;
+        
         _canvas.Children.Clear();
+        GC.Collect();
     }
 
     private void RefreshCanvas()
     {
-        ClearCanvas();
-        Draw2DCoords();
-        DrawPointsOnCanvas();
+            ClearCanvas();
+            Draw2DCoords();
+            DrawPointsOnCanvas();
     }
 
     private void UpdateCanvas(object sender, SizeChangedEventArgs args)
@@ -215,7 +227,7 @@ public abstract class CanvasController : BaseController
 
     private ICommand? _processCommand;
 
-    private int _scaling = 20;
+    private float _scaling = 20;
 
     private string _pointsString;
 
@@ -230,9 +242,9 @@ public abstract class CanvasController : BaseController
         set => SetField(ref _pointsString, value);
     }
 
-    public int Zoom { get; set; }
+    public float Zoom { get; set; } = 1.0F;
 
-    public int Scale
+    public float Scale
     {
         get => _scaling;
         set => SetField(ref _scaling, value);
