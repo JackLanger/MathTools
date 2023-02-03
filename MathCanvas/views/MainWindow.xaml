@@ -1,0 +1,121 @@
+﻿<Window
+  x:Class="MathCanvas.MainWindow"
+  xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+  xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+  xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+  xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+  mc:Ignorable="d"
+  Title="MainWindow"
+  Background="LightGray"
+  Height="550"
+  Width="800">
+  <Window.Resources>
+    <Style
+      TargetType="{x:Type Button}"
+      BasedOn="{StaticResource DefaultButton}" />
+    <Style
+      TargetType="{x:Type Canvas}">
+      <Setter
+        Property="Background"
+        Value="{StaticResource Paper}" />
+      <Setter
+        Property="Cursor"
+        Value="Cross" />
+    </Style>
+  </Window.Resources>
+
+  <StackPanel
+    Orientation="Horizontal">
+    <Border
+      Margin="15"
+      BorderBrush="LightGray"
+      CornerRadius="2"
+      BorderThickness="1">
+      <Canvas
+        MinWidth="400"
+        MinHeight="200"
+        x:Name="MathCanvas" />
+      <Border.Effect>
+        <DropShadowEffect
+          ShadowDepth="3"
+          RenderingBias="Quality"
+          Opacity=".2" />
+
+      </Border.Effect>
+    </Border>
+
+
+    <StackPanel
+      Margin="15"
+      MaxWidth="300"
+      Orientation="Vertical">
+
+      <ListBox
+        Background="{StaticResource Paper}"
+        MinHeight="300"
+        x:Name="PointList"
+        BorderBrush="LightGray"
+        ItemsSource="{Binding Points}">
+        <ListBox.Resources>
+
+          <Style
+            TargetType="Border">
+            <Setter
+              Property="CornerRadius"
+              Value="2" />
+          </Style>
+        </ListBox.Resources>
+        <ListBox.Effect>
+          <DropShadowEffect
+            ShadowDepth="3"
+            RenderingBias="Quality"
+            Opacity=".2" />
+        </ListBox.Effect>
+      </ListBox>
+      <StackPanel
+        Orientation="Vertical"
+        Margin="0,10,0,0">
+
+        <Label
+          Padding="3"
+          FontSize="15"
+          Content="Points"
+          FontWeight="Bold" />
+        <TextBlock
+          Padding="3"
+          TextWrapping="Wrap"
+          FontFamily="Consolas"
+          Text="Define new points as x,y. You can add multiple points at once by separating points with ';'" />
+      </StackPanel>
+      <Border
+        CornerRadius="2">
+        <TextBox
+          Name="TbPoints"
+          FontSize="13"
+          Padding="3"
+          BorderBrush="LightGray"
+          KeyDown="TbPoints_OnKeyDown"
+          Text="{Binding PointsString}" />
+        <Border.Effect>
+          <DropShadowEffect
+            ShadowDepth="3"
+            RenderingBias="Quality"
+            Opacity=".2" />
+        </Border.Effect>
+      </Border>
+
+      <StackPanel
+        Orientation="Horizontal">
+        <Button
+          Content="Add Point(s)"
+          Command="{Binding AddPointCommand}" />
+        <Button
+          Content="Calculate"
+          Command="{Binding ProcessCommand}" />
+        <Button
+          Content="Clear"
+          Command="{Binding ClearListCommand}" />
+      </StackPanel>
+    </StackPanel>
+  </StackPanel>
+</Window>

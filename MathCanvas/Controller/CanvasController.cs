@@ -63,7 +63,16 @@ public abstract class CanvasController : BaseController
 
     private void CreateNewPoint(Point pressedPos, Point getPosition)
     {
-
+        if (Math.Abs(pressedPos.Y - getPosition.Y) < 1 
+            && Math.Abs(pressedPos.X - getPosition.X) < 1)
+        {
+            float y = (float) (_currentCenter?.Y-getPosition.Y)!;
+            float x = (float) (getPosition.X - _currentCenter?.X)!;
+            y /= Scale;
+            x /= Scale;
+            Points.Add(new PointF(x,y));
+            RefreshCanvas();
+        }
     }
 
     private void UpdateOffset(object sender, MouseEventArgs e)
