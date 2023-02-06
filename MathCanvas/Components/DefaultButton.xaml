@@ -1,0 +1,106 @@
+﻿<UserControl
+  x:Class="MathCanvas.Components.DefaultButton"
+  xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+  xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+  xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+  xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+  mc:Ignorable="d"
+  d:DesignHeight="300"
+  Background="Transparent"
+  d:DesignWidth="300">
+  <Grid>
+    <Button
+      Height="50"
+      Width="150"
+      Content="Text">
+      <Button.Resources>
+
+
+        <Style
+          TargetType="{x:Type Button}">
+          <!-- TRIGGERS -->
+          <Style.Triggers>
+            <Trigger
+              Property="Button.IsPressed"
+              Value="True">
+              <Setter
+                Property="Background"
+                Value="LightGray" />
+            </Trigger>
+            <Trigger
+              Property="Button.IsMouseOver"
+              Value="True">
+              <Setter
+                Property="Opacity"
+                Value=".8" />
+            </Trigger>
+          </Style.Triggers>
+          <!-- COMMON SETTERS -->
+          <Setter
+            Property="Background"
+            Value="#c414e2" />
+          <Setter
+            Property="Foreground"
+            Value="White" />
+          <Setter
+            Property="Padding"
+            Value="15" />
+          <Setter
+            Property="Cursor"
+            Value="Hand" />
+          <Setter
+            Property="FontSize"
+            Value="13" />
+          <Setter
+            Property="FontWeight"
+            Value="Medium" />
+          <Setter
+            Property="FontFamily"
+            Value="{StaticResource Eras}" />
+          <!-- TEMPLATE -->
+          <Setter
+            Property="Template">
+            <Setter.Value>
+              <ControlTemplate
+                TargetType="Button">
+                <Border
+                  Name="border"
+                  Padding="7"
+                  Margin="1"
+                  BorderBrush="Transparent"
+                  CornerRadius="7"
+                  Background="{TemplateBinding Background}">
+                  <ContentPresenter
+                    HorizontalAlignment="Center"
+                    VerticalAlignment="Center" />
+                  <Border.Triggers>
+                    <EventTrigger>
+                      <BeginStoryboard>
+                        <ColorAnimation
+                          Duration="0:0:5"
+                          From="#c414e2"
+                          To="#2486d5"
+                          AutoReverse="False"
+                          AccelerationRatio=".4" />
+                      </BeginStoryboard>
+                    </EventTrigger>
+                  </Border.Triggers>
+                </Border>
+                <!-- <ControlTemplate.Triggers> -->
+                <!--   <Trigger -->
+                <!--     Property="IsMouseOver" -->
+                <!--     Value="True"> -->
+                <!--     <Setter -->
+                <!--       TargetName="border" -->
+                <!--       Property="BorderBrush" -->
+                <!--       Value="Gray" /> -->
+                <!--   </Trigger> -->
+                <!-- </ControlTemplate.Triggers> -->
+              </ControlTemplate>
+            </Setter.Value>
+          </Setter>
+        </Style>
+      </Button.Resources>
+    </Button>
+  </Grid>
+</UserControl>

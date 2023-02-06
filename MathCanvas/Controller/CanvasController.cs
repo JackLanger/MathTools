@@ -1,8 +1,7 @@
 ﻿using System;
 using System.Collections.ObjectModel;
 using System.Drawing;
-using System.Threading;
-using System.Threading.Tasks;
+using System.Linq;
 using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Input;
@@ -17,6 +16,8 @@ namespace MathCanvas.Controller;
 
 public abstract class CanvasController : BaseController
 {
+    private double IndexFontSize = 10;
+
     public CanvasController(Canvas canvas)
     {
         _canvas = canvas;
@@ -29,12 +30,14 @@ public abstract class CanvasController : BaseController
 
     private void OnZoom(object sender, MouseWheelEventArgs e)
     {
-        
+
         var d = e.Delta;
 
-        var zoom = 1+ d / 500f;
+        var zoom = 1 + d / 500f;
         Zoom += zoom;
-        Scale = Scale < 5? 5:Scale*zoom;
+        IndexFontSize += d / 500f;
+        IndexFontSize = IndexFontSize < 10 ? 10 : IndexFontSize > 20 ? 20 : IndexFontSize;
+        Scale = Scale < 5 ? 5 : Scale * zoom;
 
         RefreshCanvas();
     }
@@ -63,14 +66,15 @@ public abstract class CanvasController : BaseController
 
     private void CreateNewPoint(Point pressedPos, Point getPosition)
     {
-        if (Math.Abs(pressedPos.Y - getPosition.Y) < 1 
+        if (Math.Abs(pressedPos.Y - getPosition.Y) < 1
             && Math.Abs(pressedPos.X - getPosition.X) < 1)
         {
-            float y = (float) (_currentCenter?.Y-getPosition.Y)!;
-            float x = (float) (getPosition.X - _currentCenter?.X)!;
+            var y = (float) (_currentCenter?.Y - getPosition.Y)!;
+            var x = (float) (getPosition.X - _currentCenter?.X)!;
             y /= Scale;
             x /= Scale;
-            Points.Add(new PointF(x,y));
+            Points.Add(new PointF(x, y));
+            SortPoints();
             RefreshCanvas();
         }
     }
@@ -81,7 +85,7 @@ public abstract class CanvasController : BaseController
         // TODO position.
         if (_currentCenter is null) return;
 
-        
+
         var currentMousePos = e.GetPosition(_canvas);
         var offX = currentMousePos.X - _currentCenter?.X;
         var offY = currentMousePos.Y - _currentCenter?.Y;
@@ -120,6 +124,14 @@ public abstract class CanvasController : BaseController
             float.TryParse(xy[1], out y);
             Points.Add(new PointF(x, y));
         }
+
+        SortPoints();
+    }
+
+    private void SortPoints()
+    {
+        Points = new ObservableCollection<PointF>(Points.OrderBy(f => f.X));
+
     }
 
     /// <summary>
@@ -131,16 +143,16 @@ public abstract class CanvasController : BaseController
     private void ClearCanvas()
     {
         if (_canvas.Children.Count == 0) return;
-        
+
         _canvas.Children.Clear();
         GC.Collect();
     }
 
-    private void RefreshCanvas()
+    public void RefreshCanvas()
     {
-            ClearCanvas();
-            Draw2DCoords();
-            DrawPointsOnCanvas();
+        ClearCanvas();
+        Draw2DCoords();
+        DrawPointsOnCanvas();
     }
 
     private void UpdateCanvas(object sender, SizeChangedEventArgs args)
@@ -181,7 +193,73 @@ public abstract class CanvasController : BaseController
 
     private void DrawIndices()
     {
+        var i = 0;
+        var x = (double) _currentCenter?.X!;
+        var y = (double) _currentCenter?.Y!;
+        while (x < _canvasSize.Width)
+        {
+            if (x > _currentCenter?.X)
+            {
+                if (Scale <= 15)
+                    if (i % 5 != 0)
+                    {
+                        x += Scale;
+                        i++;
+                        continue;
+                    }
 
+                var pos = new TextBlock();
+                pos.Text = $"{i}";
+                pos.FontSize = IndexFontSize;
+                pos.Foreground = ColorConst.PENCIL;
+                var neg = new TextBlock();
+                neg.Text = $"-{i}";
+                neg.FontSize = IndexFontSize;
+                neg.Foreground = ColorConst.PENCIL;
+
+                pos.Margin = new Thickness(x - 1, y + 5, 0, 0);
+                neg.Margin = new Thickness((double) (_currentCenter?.X - Scale * i)! - 2, y + 5, 0,
+                    0);
+                _canvas.Children.Add(pos);
+                _canvas.Children.Add(neg);
+            }
+
+            x += Scale;
+            i++;
+        }
+
+        i = 0;
+        while (y < _canvasSize.Height)
+        {
+            if (y > _currentCenter?.Y)
+            {
+                if (Scale <= 15)
+                    if (i % 5 != 0)
+                    {
+                        y += Scale;
+                        i++;
+                        continue;
+                    }
+
+                var pos = new TextBlock();
+                pos.Text = $"{i}";
+                pos.FontSize = IndexFontSize;
+                pos.Foreground = ColorConst.PENCIL;
+                var neg = new TextBlock();
+                neg.Text = $"-{i}";
+                neg.FontSize = IndexFontSize;
+                neg.Foreground = ColorConst.PENCIL;
+
+                pos.Margin = new Thickness((double) (_currentCenter?.X - 5)!, y - 5, 0, 0);
+                neg.Margin = new Thickness((double) (_currentCenter?.X - 5)!,
+                    (double) (_currentCenter?.Y - i * Scale)! - 5, 0, 0);
+                _canvas.Children.Add(pos);
+                _canvas.Children.Add(neg);
+            }
+
+            y += Scale;
+            i++;
+        }
     }
 
     private void DrawPointsOnCanvas()
@@ -191,15 +269,15 @@ public abstract class CanvasController : BaseController
         drp.ShadowDepth = 1;
         foreach (var p in Points)
         {
-            var point = Point(3, p, ColorConst.DARK_PENCIL);
+            var point = Point(5, p, ColorConst.DARK_PENCIL);
             point.Stroke = ColorConst.DARK_PENCIL;
             point.Effect = drp;
             point.Fill = ColorConst.DARK_PENCIL;
             point.Focusable = true;
             point.ToolTip = $"P{_points.IndexOf(p)}(x: {p.X} | y: {p.Y})";
+            _canvas.Children.Add(point);
             // todo subscribe to events.
 
-            _canvas.Children.Add(point);
         }
     }
 
@@ -240,8 +318,9 @@ public abstract class CanvasController : BaseController
 
     private string _pointsString;
 
-    #endregion
+    private ICommand _removePointCmd;
 
+    #endregion
 
     #region PROPERTY GETTERS
 
@@ -265,6 +344,10 @@ public abstract class CanvasController : BaseController
         set => SetField(ref _points, value);
     }
 
+    #endregion
+
+    #region COMMANDS
+
     public ICommand AddPointCommand =>
         _addPointCommand ??= new RelayCommand(() => { ParsePoints(); });
 
@@ -279,6 +362,13 @@ public abstract class CanvasController : BaseController
 
     public ICommand ProcessCommand =>
         _processCommand ??= new RelayCommand(() => Process());
+
+
+    public ICommand RemovePointCmd => _removePointCmd ??= new ParameterizedCommand<int>(index =>
+    {
+        Points.RemoveAt(index!);
+        RefreshCanvas();
+    });
 
     #endregion
 }

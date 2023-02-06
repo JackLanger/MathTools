@@ -1,4 +1,5 @@
-﻿using System.Windows;
+﻿using System.IO;
+using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Input;
 using MathCanvas.Controller;
@@ -26,6 +27,28 @@ public partial class MainWindow : Window
             var text = tb.Text;
             cont.PointsString = text;
             cont.AddPointCommand.Execute(null);
+        }
+    }
+
+    private void LbPoints_OnDrop(object sender, DragEventArgs e)
+    {
+        var lb = sender as TextBox;
+        var cont = DataContext as ProcessingCanvasController;
+        if (e.Data.GetDataPresent(DataFormats.FileDrop))
+        {
+
+            var files = (string[]) e.Data.GetData(DataFormats.FileDrop)!;
+            foreach (var file in files)
+            {
+                var fileContent = File.ReadLines(file);
+
+                // todo: remove artifacts such as comments
+
+                cont!.ParsePoints2D(string.Join(" ", fileContent));
+                cont!.RefreshCanvas();
+            }
+
+
         }
     }
 }

@@ -25,29 +25,32 @@
         Property="Button.IsMouseOver"
         Value="True">
         <Setter
-          Property="Background"
-          Value="Azure" />
+          Property="Opacity"
+          Value=".8" />
       </Trigger>
     </Style.Triggers>
     <!-- COMMON SETTERS -->
     <Setter
       Property="Background"
+      Value="#c414e2" />
+    <Setter
+      Property="Foreground"
       Value="White" />
     <Setter
       Property="Padding"
       Value="15" />
     <Setter
-      Property="Margin"
-      Value="5" />
-    <Setter
       Property="Cursor"
       Value="Hand" />
     <Setter
       Property="FontSize"
-      Value="13" />
+      Value="15" />
+    <Setter
+      Property="FontWeight"
+      Value="Medium" />
     <Setter
       Property="FontFamily"
-      Value="Arial" />
+      Value="{StaticResource Arial}" />
     <!-- TEMPLATE -->
     <Setter
       Property="Template">
@@ -56,21 +59,41 @@
           TargetType="Button">
           <Border
             Name="border"
-            BorderThickness="1"
+            BorderThickness="1 1 2  2"
             Padding="7"
-            Margin="5"
-            BorderBrush="LightGray"
+            Margin="1"
+            BorderBrush="Transparent"
             CornerRadius="3"
             Background="{TemplateBinding Background}">
             <ContentPresenter
               HorizontalAlignment="Center"
               VerticalAlignment="Center" />
-            <Border.Effect>
-              <DropShadowEffect
-                ShadowDepth="3"
-                RenderingBias="Quality"
-                Opacity=".2" />
-            </Border.Effect>
+            <Border.Triggers>
+              <EventTrigger
+                RoutedEvent="Button.MouseEnter">
+                <BeginStoryboard>
+                  <Storyboard>
+                    <ColorAnimation
+                      To="#2486d5"
+                      Storyboard.TargetProperty="(Button.Background).(SolidColorBrush.Color)"
+                      FillBehavior="Stop"
+                      Duration="0:0:0.5" />
+                  </Storyboard>
+                </BeginStoryboard>
+              </EventTrigger>
+              <!--   <EventTrigger -->
+              <!--     RoutedEvent="Button.MouseLeave"> -->
+              <!--     <BeginStoryboard> -->
+              <!--       <Storyboard> -->
+              <!--         <ColorAnimation -->
+              <!--           To="#c414e2" -->
+              <!--           Storyboard.TargetProperty="(Button.Background).(SolidColorBrush.Color)" -->
+              <!--           FillBehavior="Stop" -->
+              <!--           Duration="0:0:0.5" /> -->
+              <!--       </Storyboard> -->
+              <!--     </BeginStoryboard> -->
+              <!--   </EventTrigger> -->
+            </Border.Triggers>
           </Border>
           <ControlTemplate.Triggers>
             <Trigger
@@ -78,8 +101,8 @@
               Value="True">
               <Setter
                 TargetName="border"
-                Property="BorderBrush"
-                Value="Gray" />
+                Property="Background"
+                Value="#2486d5" />
             </Trigger>
           </ControlTemplate.Triggers>
         </ControlTemplate>
