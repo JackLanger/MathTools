@@ -7,7 +7,7 @@
   mc:Ignorable="d"
   Title="MainWindow"
   Background="#f5f5f5"
-  d:Height="600"
+  d:Height="1150"
   d:Width="800">
   <Window.Resources>
     <Style
@@ -55,8 +55,8 @@
         CornerRadius="1"
         Background="{StaticResource Paper}">
         <Canvas
-          MinWidth="800"
           MinHeight="200"
+          MinWidth="900"
           Background="Transparent"
           x:Name="MathCanvas">
           <Canvas.Resources>
@@ -80,7 +80,7 @@
 
       <StackPanel
         Margin="15"
-        MaxWidth="300"
+        DockPanel.Dock="Right"
         Orientation="Vertical">
         <Border
           BorderBrush="#e7e7e7"

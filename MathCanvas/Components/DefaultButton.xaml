@@ -65,7 +65,7 @@
                 TargetType="Button">
                 <Border
                   Name="border"
-                  Padding="7"
+                  Padding="10"
                   Margin="1"
                   BorderBrush="Transparent"
                   CornerRadius="7"

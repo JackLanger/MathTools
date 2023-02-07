@@ -50,7 +50,7 @@
       Value="Medium" />
     <Setter
       Property="FontFamily"
-      Value="{StaticResource Arial}" />
+      Value="Arial" />
     <!-- TEMPLATE -->
     <Setter
       Property="Template">
@@ -58,9 +58,9 @@
         <ControlTemplate
           TargetType="Button">
           <Border
+            MinWidth="100"
             Name="border"
-            BorderThickness="1 1 2  2"
-            Padding="7"
+            Padding="10"
             Margin="1"
             BorderBrush="Transparent"
             CornerRadius="3"

@@ -137,7 +137,7 @@ public abstract class CanvasController : BaseController
     /// <summary>
     ///     Process the points in the array Points.
     /// </summary>
-    protected abstract void Process();
+    protected abstract void Process(ref Canvas canv);
 
 
     private void ClearCanvas()
@@ -298,7 +298,7 @@ public abstract class CanvasController : BaseController
 
     #region PRIVATE FIELDS
 
-    private readonly Canvas _canvas;
+    protected Canvas _canvas;
 
     private ICommand? _addPointCommand;
 
@@ -312,7 +312,6 @@ public abstract class CanvasController : BaseController
 
     private ObservableCollection<PointF> _points = new();
 
-    private ICommand? _processCommand;
 
     private float _scaling = 20;
 
@@ -359,9 +358,6 @@ public abstract class CanvasController : BaseController
             ClearCanvas();
             Draw2DCoords();
         });
-
-    public ICommand ProcessCommand =>
-        _processCommand ??= new RelayCommand(() => Process());
 
 
     public ICommand RemovePointCmd => _removePointCmd ??= new ParameterizedCommand<int>(index =>
