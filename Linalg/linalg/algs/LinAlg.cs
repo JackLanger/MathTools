@@ -19,8 +19,6 @@ public static class LinAlg
     /// </exception>
     public static double[] Solve(Matrix matrix, double[] solv)
     {
-        
-        
         // pre computation checks.
         IsSquareCheck(matrix);
         RankCheck(matrix, solv);
@@ -46,6 +44,8 @@ public static class LinAlg
             s[j] += a * s[i - 1];
         }
 
+        if (isNullRow(m[m.Rows], solv[m.Rows]))
+            throw new InvalidMatrixOperation($"LES has an infinite number of solutions {m},{solv}");
         // iterate back up
         for (var i = m.Rows - 2; i >= 0; i--)
         for (var j = i; j >= 0; j--)
@@ -65,6 +65,17 @@ public static class LinAlg
         }
 
         return s;
+    }
+
+    private static bool isNullRow(Row row, double d)
+    {
+        for (var i = 0; i < row.Length; i++)
+            if (row[i] != 0)
+                return false;
+        // todo: return matrix information!
+        if (d != 0) throw new InvalidMatrixOperation("LES is unsolvable!");
+
+        return true;
     }
 
 
