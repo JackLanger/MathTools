@@ -19,6 +19,8 @@ public static class LinAlg
     /// </exception>
     public static double[] Solve(Matrix matrix, double[] solv)
     {
+        
+        
         // pre computation checks.
         IsSquareCheck(matrix);
         RankCheck(matrix, solv);

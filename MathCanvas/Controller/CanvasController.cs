@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.Drawing;
 using System.Linq;
@@ -9,6 +10,7 @@ using System.Windows.Media;
 using System.Windows.Media.Effects;
 using System.Windows.Shapes;
 using MathCanvas.Core.Actions;
+using Color = System.Windows.Media.Color;
 using Point = System.Windows.Point;
 using Size = System.Windows.Size;
 
@@ -26,42 +28,6 @@ public abstract class CanvasController : BaseController
         _canvas.MouseWheel += OnZoom;
 
         ClearCanvas();
-    }
-
-    private void OnZoom(object sender, MouseWheelEventArgs e)
-    {
-
-        var d = e.Delta;
-
-        var zoom = 1 + d / 500f;
-        Zoom += zoom;
-        IndexFontSize += d / 500f;
-        IndexFontSize = IndexFontSize < 10 ? 10 : IndexFontSize > 20 ? 20 : IndexFontSize;
-        Scale = Scale < 5 ? 5 : Scale * zoom;
-
-        RefreshCanvas();
-    }
-
-
-    private void CaptureMouseDown(object sender, MouseButtonEventArgs e)
-    {
-        if (e.MiddleButton == MouseButtonState.Pressed)
-        {
-            // move canvas in 2d / 3d rotate around axis...
-            // // TODO: refuses to let go of mouse move event
-            _canvas.MouseMove += UpdateOffset;
-            _canvas.MouseUp += (_, _) => { _canvas.MouseMove -= UpdateOffset; };
-        }
-        else if (e.LeftButton == MouseButtonState.Pressed)
-        {
-            var pressedPos = e.GetPosition(_canvas);
-            // create a new point
-            _canvas.MouseUp += (s, evt) =>
-            {
-                CreateNewPoint(pressedPos, evt.GetPosition(_canvas));
-            };
-        }
-        // do context menu stuff here.
     }
 
     private void CreateNewPoint(Point pressedPos, Point getPosition)
@@ -134,10 +100,55 @@ public abstract class CanvasController : BaseController
 
     }
 
+    /**
+     * Interpolate a function and return the coefficients in an array.
+     */
+    protected abstract double[][] InterpolateFunction();
+
     /// <summary>
     ///     Process the points in the array Points.
     /// </summary>
-    protected abstract void Process(ref Canvas canv);
+    private void Process()
+    {
+
+        var arr = InterpolateFunction();
+
+        ICollection<PointF> draw = new List<PointF>();
+
+
+        if (_points.Count % 2 != 0)
+        {
+            var last = Points[Points.Count - 1];
+            var sndLast = Points[Points.Count - 2];
+
+            var mirror = new PointF(last.X - sndLast.X, sndLast.Y);
+            Points.Add(mirror);
+        }
+
+        for (var i = 0; i < Points.Count; i += 2)
+        {
+            var p1 = Points[i];
+            var p2 = Points[i + 2];
+            var func = arr[i / 2];
+
+
+            var x = p1.X;
+            var y1 = p1.Y;
+            while (x < p2.X)
+            {
+                var y2 = (float) (func[0] * x * x * x + func[1] * x * x + func[2] * x + func[3]);
+                var line = DrawUtils.Line(
+                    new PointF(x * Scale, y1 * Scale),
+                    new PointF((x + 0.1f) * Scale, y2 * Scale),
+                    new SolidColorBrush(Color.FromRgb(36, 134, 211))
+                );
+                y1 = y2;
+                x += 0.1f;
+                _canvas.Children.Add(line);
+            }
+
+        }
+    }
 
 
     private void ClearCanvas()
@@ -153,15 +164,21 @@ public abstract class CanvasController : BaseController
         ClearCanvas();
         Draw2DCoords();
         DrawPointsOnCanvas();
+        DrawGraphs();
     }
+
+    private void DrawGraphs()
+    {
+        foreach (var line in _lines) _canvas.Children.Add(line);
+    }
+
 
     private void UpdateCanvas(object sender, SizeChangedEventArgs args)
     {
-        ClearCanvas();
         _canvasSize = args.NewSize;
         _currentCenter = new PointF((float) _canvasSize.Width / 2, (float) _canvasSize.Height / 2);
         if (_offset is not null) Offset(_currentCenter!.Value, _offset!.Value);
-        Draw2DCoords();
+        RefreshCanvas();
     }
 
     private void Draw2DCoords()
@@ -188,7 +205,6 @@ public abstract class CanvasController : BaseController
         _canvas.Children.Add(vertical);
         // Draw indices for beter overview
         DrawIndices();
-
     }
 
     private void DrawIndices()
@@ -296,7 +312,51 @@ public abstract class CanvasController : BaseController
     private static PointF MultPoint(PointF p, double val) =>
         new((int) (p.X * val), (int) (p.Y * val));
 
+    #region Event FUNC
+
+    private void OnZoom(object sender, MouseWheelEventArgs e)
+    {
+
+        var d = e.Delta;
+
+        var zoom = 1 + d / 500f;
+        Zoom += zoom;
+        IndexFontSize += d / 500f;
+        IndexFontSize = IndexFontSize < 10 ? 10 : IndexFontSize > 20 ? 20 : IndexFontSize;
+        Scale = Scale < 5 ? 5 : Scale * zoom;
+
+        RefreshCanvas();
+    }
+
+
+    private void CaptureMouseDown(object sender, MouseButtonEventArgs e)
+    {
+        if (e.MiddleButton == MouseButtonState.Pressed)
+        {
+            // move canvas in 2d / 3d rotate around axis...
+            // // TODO: refuses to let go of mouse move event
+            _canvas.MouseMove += UpdateOffset;
+            _canvas.MouseUp += (_, _) => { _canvas.MouseMove -= UpdateOffset; };
+        }
+        else if (e.LeftButton == MouseButtonState.Pressed)
+        {
+            var pressedPos = e.GetPosition(_canvas);
+            // create a new point
+            _canvas.MouseUp += (s, evt) =>
+            {
+                CreateNewPoint(pressedPos, evt.GetPosition(_canvas));
+            };
+        }
+        // do context menu stuff here.
+    }
+
+    #endregion
+
     #region PRIVATE FIELDS
+
+    protected ObservableCollection<Line> _lines = new();
+
+    private ICommand? _processCommand;
 
     protected Canvas _canvas;
 
@@ -304,11 +364,12 @@ public abstract class CanvasController : BaseController
 
     private Size _canvasSize;
 
-    private ICommand? _clearListCommand;
-
     private PointF? _currentCenter;
 
     private PointF? _offset;
+
+    private ICommand? _clearListCommand;
+
 
     private ObservableCollection<PointF> _points = new();
 
@@ -365,6 +426,9 @@ public abstract class CanvasController : BaseController
         Points.RemoveAt(index!);
         RefreshCanvas();
     });
+
+    public ICommand ProcessCommand =>
+        _processCommand ??= new RelayCommand(() => Process());
 
     #endregion
 }

@@ -38,23 +38,52 @@ public class Matrix
     /// <summary>
     ///     Create a new Matrix and assign the data to the backing field.
     /// </summary>
-    /// <param name="data">The data to assign</param>
-    public Matrix(double[,] data)
+    /// <param name="_data">The data to assign</param>
+    public Matrix(double[,] _data)
     {
-        Data = data;
+        Data = _data;
     }
 
-    public Matrix(int x, int y)
+
+    /// <summary>
+    ///     Creates a square matrix of size n by n. All values default to 0.
+    /// </summary>
+    /// <param name="n">Number of rows and columns</param>
+    public Matrix(int n) : this(n, n)
     {
-        Data = new double[x, y];
     }
 
     /// <summary>
-    ///     Return the determining of the Matrix if it exist. Will Throw if matrix is not
-    ///     Square.
+    ///     Creates a Matrix with the Dimensions n,m. All Values are set to 0 by default.
+    /// </summary>
+    /// <param name="n">number of rows</param>
+    /// <param name="m">Number of Columns</param>
+    public Matrix(int n, int m)
+    {
+        Data = new double[n, m];
+    }
+
+    /// <summary>
+    ///     Create a Matrix from a Serialized Matrix by providing the dimensions of the Matrix.
+    /// </summary>
+    /// <param name="data">data to use to populate the matrix</param>
+    /// <param name="n">Number of rows</param>
+    /// <param name="m">number of Columns</param>
+    public Matrix(double[] data, int n, int m) : this(n, m)
+    {
+        for (var i = 0; i < n; i++)
+        for (var j = 0; j < m; j++)
+            Data[i, j] = data[i * j + j];
+    }
+
+    /// <summary>
+    ///     Returns the Determinant of a Matrix. The Determinant is an important indicator if an
+    ///     Linear Equation System (LES) can be solved. If the Determinant of a Matrix equals 0 (det(A)=0),
+    ///     linear dependencies within the matrix exist and there is not a single solution to the LES.
+    ///     The LES could still present an infinite number of solutions or none at all.
     ///     <exception cref="InvalidMatrixOperation"> if Matrix not square</exception>
     /// </summary>
-    public double D => _det ?? CalcDetermining();
+    public double D => _det ??= GetDet();
 
     /// <summary>
     ///     Data container for the matrix. Multidimensional array of double.
@@ -282,46 +311,97 @@ public class Matrix
     }
 
     /// <summary>
-    ///     Calculates the determining of a square matrix.
+    ///     Calculate and return the Determinant.
     /// </summary>
-    /// <returns>The determining of the Matrix</returns>
-    /// <exception cref="NotImplementedException"></exception>
-    private double CalcDetermining()
+    /// <returns>the determinant</returns>
+    /// <exception cref="InvalidMatrixOperation">If no data is present</exception>
+    private double GetDet()
     {
         if (Rows != Cols)
-            throw new InvalidMatrixOperation(
-                $"Determinants are only available for square matrices, but a matrix of size {Rows}x{Cols} was provided");
+            throw new InvalidMatrixOperation("The can not be calculate the determinant of a non square matrix.");
 
-        if (Rows == 2)
-            return SmallDetermining();
+        var n = Data.Length;
+
+        if (n < 3)
+        {
+            if (n == 1) return Data[0, 0];
+            if (n == 2) return Data[0, 0] * Data[1, 1] - Data[1, 0] * Data[0, 1];
+
+            throw new InvalidMatrixOperation("Matrix has size of 0");
+        }
+
+        if (n == 3) return DetSarrus();
+
         double det = 0;
-        for (var r = 0; r <= Rows - 3; r++)
-        for (var c = 0; c <= Cols - 3; c++)
-            det += Data[(0 + r) % Rows, (0 + c) % Cols]
-                   * Data[(1 + r) % Rows, (1 + c) % Cols]
-                   * Data[(2 + r) % Rows, (2 + c) % Cols]
-                   // middle
-                   + Data[(1 + r) % Rows, (0 + c) % Cols]
-                   * Data[(2 + r) % Rows, (1 + c) % Cols]
-                   * Data[(0 + r) % Rows, (2 + c) % Cols]
-                   // right
-                   + Data[(2 + r) % Rows, (0 + c) % Cols]
-                   * Data[(0 + r) % Rows, (1 + c) % Cols]
-                   * Data[(1 + r) % Rows, (2 + c) % Cols]
-                   // subtracts
-                   - Data[(2 + r) % Rows, (0 + c) % Cols]
-                   * Data[(1 + r) % Rows, (1 + c) % Cols]
-                   * Data[(0 + r) % Rows, (2 + c) % Cols]
-                   // middle
-                   - Data[(2 + r) % Rows, (1 + c) % Cols]
-                   * Data[(1 + r) % Rows, (2 + c) % Cols]
-                   * Data[(0 + r) % Rows, (0 + c) % Cols]
-                   // right
-                   - Data[(2 + r) % Rows, (2 + c) % Cols]
-                   * Data[(1 + r) % Rows, (0 + c) % Cols]
-                   * Data[(0 + r) % Rows, (1 + c) % Cols];
-        _det = det; // assign value so  calculation has to be run only once
+        for (var i = 0; i < n; i++)
+        for (var j = 0; j < n; j++)
+        {
+            var fact = (int)Math.Pow(-1, i + j);
+            det += fact * Data[i, j] * getSubA(i, j).GetDet();
+        }
+
         return det;
+    }
+
+    /// <summary>
+    ///     Creates a Matrix of size n-1 and copies all values from the backing field to the new matrix.
+    ///     All fields but fields with the row number i and column number j.
+    /// </summary>
+    /// <param name="i">row index</param>
+    /// <param name="j">column index</param>
+    /// <returns>A Sub Matrix of the current matrix without the provided column and row</returns>
+    /// <exception cref="Exception"> if the current matrix is smaller than 2x2</exception>
+    private Matrix getSubA(int i, int j)
+    {
+        var n = Data.Length - 1;
+        if (n < 2)
+            throw new Exception("Invalid exception Sub Matrix of size 1 cannot be created as it is a single value");
+        var tmp = new Matrix(n);
+
+        for (var k = 0; k < n; k++)
+        for (var l = 0; l < n; l++)
+            if (k > i && l > j)
+                tmp[k - 1, l - 1] = Data[k, l];
+            else if (k > n)
+                tmp[k - 1, l] = Data[k, l];
+            else if (l > n)
+                tmp[k, l - 1] = Data[k, l];
+            else
+                tmp[k, l] = Data[k, l];
+
+        return tmp;
+    }
+
+
+    /// <summary>
+    ///     Return the determinant of the 3x3 matrix calculated as of the Sarrus.
+    /// </summary>
+    /// <returns>Determinant of the matrix</returns>
+    private double DetSarrus()
+    {
+        return Data[0, 0]
+               * Data[1, 1]
+               * Data[2, 2]
+               // middle
+               + Data[1, 0]
+               * Data[2, 1]
+               * Data[0, 2]
+               // right
+               + Data[2, 0]
+               * Data[0, 1]
+               * Data[1, 2]
+               // subtracts
+               - Data[2, 0]
+               * Data[1, 1]
+               * Data[0, 2]
+               // middle
+               - Data[2, 1]
+               * Data[1, 2]
+               * Data[0, 0]
+               // right
+               - Data[2, 2]
+               * Data[1, 0]
+               * Data[0, 1];
     }
 
     private double SmallDetermining()

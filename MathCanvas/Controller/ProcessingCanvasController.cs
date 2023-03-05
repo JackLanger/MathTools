@@ -1,37 +1,42 @@
 using System.Windows.Controls;
-using System.Windows.Input;
-using System.Windows.Media;
-using MathCanvas.Core.Actions;
+using MathTools;
 
 namespace MathCanvas.Controller;
 
 public class ProcessingCanvasController : CanvasController
 {
-    private ICommand? _processCommand;
-
     public ProcessingCanvasController(Canvas canvas) : base(canvas)
     {
     }
 
-    public ICommand ProcessCommand =>
-        _processCommand ??= new RelayCommand(() => Process(ref _canvas));
-
-    protected override void Process(ref Canvas canv)
+    protected override double[][] InterpolateFunction()
     {
-        // Your implementation goes here
-        // Points are being hold in the field Points
-
-        for (var i = 1; i < Points.Count; i++)
+        var funcs = new double[Points.Count - 4][];
+        if (Points.Count < 3) return funcs;
+        var m = new Matrix(Points.Count - 3, Points.Count - 3);
+        for (var i = 1; i < Points.Count - 2; i++)
         {
+            m[i - 1, i - 1] = 2 * (Points[i + 1].X - Points[i - 1].X);
 
-            var p1 = Points[i - 1];
-            var p2 = Points[i];
-
-            //#2486d5
-            var line = DrawUtils.Line(p1, p2, new SolidColorBrush(Colors.Blue));
-            canv.Children.Add(line);
+            if (i > 1)
+                m[i - 1, i - 2] = Points[i].X - Points[i - 1].X;
+            if (i < Points.Count - 3)
+                m[i - 1, i] = Points[i + 1].X - Points[i].X;
         }
 
-        RefreshCanvas();
+        for (var i = 0; i < funcs.Length; i++)
+        {
+            funcs[i] = new double[4];
+
+            funcs[i][0] = (m[i + 1, i] - m[i, i]) / 3 * (Points[i + 1].X - Points[i].X);
+            funcs[i][1] = m[i, i];
+            funcs[i][2] = (Points[i + 1].Y - Points[i].Y) / (Points[i + 1].X - Points[i].X)
+                          - 1 / 3.0 * (m[i + 1, i] - m[i, i]) * (Points[i + 1].X - Points[i].X)
+                          - m[i, i] * (Points[i + 1].X - Points[i].X);
+            funcs[i][3] = Points[i].Y;
+
+        }
+
+        return funcs;
     }
 }

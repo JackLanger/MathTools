@@ -20,4 +20,8 @@
       <Folder Include="Models" />
     </ItemGroup>
 
+    <ItemGroup>
+      <ProjectReference Include="..\Linalg\Linalg.csproj" />
+    </ItemGroup>
+
 </Project>
