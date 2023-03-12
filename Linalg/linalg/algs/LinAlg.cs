@@ -17,6 +17,25 @@ public static class LinAlg
     ///     if non square matrix is provided or solving vector dimensions do not match
     ///     Matrix Rows/Rank
     /// </exception>
+    public static Vector Solve(Matrix matrix, Vector solv)
+    {
+        var data = new double[solv.Length];
+        for (var i = 0; i < solv.Length; i++) data[i] = solv[i];
+        return new Vector(Solve(matrix, data));
+    }
+
+    /// <summary>
+    ///     Solve a Matrix using the solving vector and return the result of the operation as a double
+    ///     array.
+    /// </summary>
+    /// <param name="matrix">the Matrix to solve</param>
+    /// <param name="solv">The Solving vector used for solving the Matrix</param>
+    /// <returns></returns>
+    /// <exception cref="NotImplementedException"></exception>
+    /// <exception cref="InvalidMatrixOperation">
+    ///     if non square matrix is provided or solving vector dimensions do not match
+    ///     Matrix Rows/Rank
+    /// </exception>
     public static double[] Solve(Matrix matrix, double[] solv)
     {
         // pre computation checks.
