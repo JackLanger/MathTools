@@ -104,6 +104,17 @@ public class Vector
         return tmp;
     }
 
+    public static Vector operator *(Vector a, Vector b)
+    {
+        if (a.Length != b.Length)
+            throw new InvalidVectorOperation("Operation invalid on vertices of different dimensions");
+
+        var tmp = new Vector(a.Length);
+        for (var i = 0; i < a.Length; i++) tmp[i] = a[i] * b[i];
+
+        return tmp;
+    }
+
 
     /// <summary>
     ///     Multiply a Matrix m from left with a vector to the right. This Operation will result in a new Vector of the size of
