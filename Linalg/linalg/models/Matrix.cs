@@ -83,7 +83,7 @@ public class Matrix
     ///     The LES could still present an infinite number of solutions or none at all.
     ///     <exception cref="InvalidMatrixOperation"> if Matrix not square</exception>
     /// </summary>
-    public double D => _det ??= GetDet();
+    public double D => _det ??= Determinant();
 
     /// <summary>
     ///     Data container for the matrix. Multidimensional array of double.
@@ -99,7 +99,20 @@ public class Matrix
     ///     Returns a Transpose of the Matrix. If transpose is null this function will generate a new Transpose and assign it
     ///     to the backing field.
     /// </summary>
-    public Matrix T => _transpose ?? TransposeMatrix();
+    public Matrix T
+    {
+        get
+        {
+            if (_transpose is not null) return _transpose;
+            // create the transpose of the matrix.
+            var transData = new double[Cols, Rows];
+            for (var i = 0; i < Rows; i++)
+            for (var j = 0; j < Cols; j++)
+                transData[j, i] = this[i, j];
+            _transpose = new Matrix(transData, this);
+            return _transpose;
+        }
+    }
 
 
     /// <summary>
@@ -124,15 +137,58 @@ public class Matrix
     }
 
 
-    private Matrix TransposeMatrix()
+    /// <summary>
+    ///     Retrieve a column as a one dimensional array.
+    /// </summary>
+    /// <param name="col">Index of the column</param>
+    /// <returns>Array of the column</returns>
+    public double[] GetColumn(int col)
     {
-        var transData = new double[Cols, Rows];
-        for (var i = 0; i < Rows; i++)
-        for (var j = 0; j < Cols; j++)
-            transData[j, i] = this[i, j];
-        _transpose = new Matrix(transData, this);
-        return _transpose;
+        return Enumerable.Range(0, Data.GetLength(0))
+            .Select(x => Data[x, col])
+            .ToArray();
     }
+
+    /// <summary>
+    ///     Return the indexed row as one dimensional array.
+    /// </summary>
+    /// <param name="row">Index of the column</param>
+    /// <returns>Array of the row fetched from the matrix</returns>
+    private Row GetRow(int row)
+    {
+        return new Row(Enumerable.Range(0, Data.GetLength(1))
+            .Select(x => Data[row, x])
+            .ToArray());
+    }
+
+    private void SetRow(Row rowdata, int row)
+    {
+        for (var i = 0; i < Cols; i++) Data[row, i] = rowdata[i];
+    }
+
+    public override bool Equals(object? obj)
+    {
+        if (obj is Matrix other)
+            return Equals(other);
+        return false;
+    }
+
+    private bool Equals(Matrix other)
+    {
+        return _comparer.Equals(this, other);
+    }
+
+    public override int GetHashCode()
+    {
+        return HashCode.Combine(Data);
+    }
+
+    public void SetCol(double[] colData, int col)
+    {
+        for (var i = 0; i < Cols; i++) Data[i, col] = colData[i];
+    }
+
+    #region Operators
 
     /// <summary>
     ///     Adds tow matrices of equal size.
@@ -238,39 +294,9 @@ public class Matrix
         return lft + rgt * -1;
     }
 
-    /// <summary>
-    ///     Retrieve a column as a one dimensional array.
-    /// </summary>
-    /// <param name="col">Index of the column</param>
-    /// <returns>Array of the column</returns>
-    public double[] GetColumn(int col)
-    {
-        return Enumerable.Range(0, Data.GetLength(0))
-            .Select(x => Data[x, col])
-            .ToArray();
-    }
+    #endregion
 
-    /// <summary>
-    ///     Return the indexed row as one dimensional array.
-    /// </summary>
-    /// <param name="row">Index of the column</param>
-    /// <returns>Array of the row fetched from the matrix</returns>
-    private Row GetRow(int row)
-    {
-        return new Row(Enumerable.Range(0, Data.GetLength(1))
-            .Select(x => Data[row, x])
-            .ToArray());
-    }
-
-    private void SetRow(Row rowdata, int row)
-    {
-        for (var i = 0; i < Cols; i++) Data[row, i] = rowdata[i];
-    }
-
-    public void SetCol(double[] colData, int col)
-    {
-        for (var i = 0; i < Cols; i++) Data[i, col] = colData[i];
-    }
+    #region Matrix Functions
 
     /// <summary>
     ///     Shorthand method to swap two rows. Will throw out of bounds exception if row is not within Bounds.
@@ -293,29 +319,12 @@ public class Matrix
         }
     }
 
-    public override bool Equals(object? obj)
-    {
-        if (obj is Matrix other)
-            return Equals(other);
-        return false;
-    }
-
-    private bool Equals(Matrix other)
-    {
-        return _comparer.Equals(this, other);
-    }
-
-    public override int GetHashCode()
-    {
-        return HashCode.Combine(Data);
-    }
-
     /// <summary>
     ///     Calculate and return the Determinant.
     /// </summary>
     /// <returns>the determinant</returns>
     /// <exception cref="InvalidMatrixOperation">If no data is present</exception>
-    private double GetDet()
+    private double Determinant()
     {
         if (Rows != Cols)
             throw new InvalidMatrixOperation("The can not be calculate the determinant of a non square matrix.");
@@ -337,7 +346,7 @@ public class Matrix
         for (var j = 0; j < n; j++)
         {
             var fact = (int)Math.Pow(-1, i + j);
-            det += fact * Data[i, j] * getSubA(i, j).GetDet();
+            det += fact * Data[i, j] * GetSubArray(i, j).Determinant();
         }
 
         return det;
@@ -351,12 +360,13 @@ public class Matrix
     /// <param name="j">column index</param>
     /// <returns>A Sub Matrix of the current matrix without the provided column and row</returns>
     /// <exception cref="Exception"> if the current matrix is smaller than 2x2</exception>
-    private Matrix getSubA(int i, int j)
+    private Matrix GetSubArray(int i, int j)
     {
         var n = Data.Length - 1;
         if (n < 2)
             throw new Exception("Invalid exception Sub Matrix of size 1 cannot be created as it is a single value");
         var tmp = new Matrix(n);
+
 
         for (var k = 0; k < n; k++)
         for (var l = 0; l < n; l++)
@@ -404,6 +414,10 @@ public class Matrix
                * Data[0, 1];
     }
 
+    /// <summary>
+    ///     Return the determinant of a 2x2 matrix using the reduced Sarrus Operation.
+    /// </summary>
+    /// <returns> The determinant of a matrix of size 2x2</returns>
     private double SmallDetermining()
     {
         return Data[0, 0] * Data[1, 1]
@@ -412,4 +426,6 @@ public class Matrix
                - Data[0, 1] * Data[0, 0]
             ;
     }
+
+    #endregion
 }

@@ -130,7 +130,7 @@ public static class LinAlg
     }
 
     /// <summary>
-    ///     Calculate the Inverse of a Matrix. The Process is similiar to solving a linear equation system.
+    ///     Calculate the Inverse of a Matrix. The Process is similar to solving a linear equation system.
     ///     Instead of a Vector
     ///     to solve against a unified matrix is used. The Inverse is the result of the Solving the
     ///     equations and applying the
