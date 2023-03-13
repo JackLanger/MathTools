@@ -36,6 +36,28 @@ public class Vector
 
     #region Operators
 
+    /// <summary>
+    ///     Multiply a Vector from left with a matrix, that is the transpose of a Vector to the right. Result of a successful
+    ///     Operation is Matrix of the dimensions of Length of the left vector and Columns of the right matrix.
+    /// </summary>
+    /// <param name="v">Vector v</param>
+    /// <param name="m">Matrix m which is the transpose of a vector</param>
+    /// <returns>a Matrix of dimensions according to the length of the vector and the columns of the matrix</returns>
+    /// <exception cref="InvalidMatrixOperation">if dimensions don't match up</exception>
+    public static Matrix operator *(Vector v, Matrix m)
+    {
+        if (m.Rows > 1)
+            throw new InvalidMatrixOperation(
+                $"Unable to multiply a vector from left to a matrix of size {m.Rows}x{m.Cols}");
+
+        var tmp = new Matrix(v.Length, m.Cols);
+        for (var i = 0; i < v.Length; i++)
+        for (var j = 0; j < m.Cols; j++)
+            tmp[i, j] = v[i] * m[0, j];
+
+        return tmp;
+    }
+
     public static Vector operator -(Vector fst, Vector snd)
     {
         return fst + -1 * snd;
@@ -140,26 +162,6 @@ public class Vector
         return tmp;
     }
 
-    /// <summary>
-    ///     Multiply a Vector from left with a matrix, that is the transpose of a Vector to the right. Result of a successful
-    ///     Operation is Matrix of the dimensions of Length of the left vector and Columns of the right matrix.
-    /// </summary>
-    /// <param name="v">Vector v</param>
-    /// <param name="m">Matrix m which is the transpose of a vector</param>
-    /// <returns>a Matrix of dimensions according to the length of the vector and the columns of the matrix</returns>
-    /// <exception cref="InvalidMatrixOperation">if dimensions don't match up</exception>
-    public static Matrix operator *(Vector v, Matrix m)
-    {
-        if (m.Rows != v.Length)
-            throw new InvalidMatrixOperation("Only matrices of size 1xN can be multiplied from left with a vector v");
-        var tmp = new Matrix(v.Length, m.Cols);
-        for (var i = 0; i < v.Length; i++)
-        for (var j = 0; j < m.Cols; j++)
-            tmp[i, j] = v[i] * m[i, j];
-
-        return tmp;
-    }
-
     #endregion
 
     #region Vector Functions
@@ -185,7 +187,7 @@ public class Vector
     public Matrix T()
     {
         if (_transpose is not null) return _transpose;
-        _transpose = new Matrix(0, Length);
+        _transpose = new Matrix(1, Length);
 
         for (var i = 0; i < Length; i++) _transpose[0, i] = _data[i];
 
