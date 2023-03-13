@@ -3,10 +3,14 @@
 public class MnistReader
 {
     // todo replace paths with urls and call http request on setup.
-    private static readonly string MnistTrainImages = "./data/train-images.idx3-ubyte";
-    private static readonly string MnistTrainLabels = "./data/train-labels.idx1-ubyte";
-    private static readonly string MnistImages = "./data/t10k-images.idx3-ubyte";
-    private static readonly string MnistLabels = "./data/t10k-labels.idx1-ubyte";
+    private static readonly string MnistTrainImages =
+        @"D:\libs\dotnet\MathTools\MnistAssertion\data\train-images.idx3-ubyte";
+
+    private static readonly string MnistTrainLabels =
+        @"D:\libs\dotnet\MathTools\MnistAssertion\data\train-labels.idx1-ubyte";
+
+    private static readonly string MnistImages = @"D:\libs\dotnet\MathTools\MnistAssertion\data\t10k-images.idx3-ubyte";
+    private static readonly string MnistLabels = @"D:\libs\dotnet\MathTools\MnistAssertion\data\t10k-labels.idx1-ubyte";
 
     private static byte[]? _trainImages;
     private static byte[]? _trainlabels;
